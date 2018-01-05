@@ -1,18 +1,37 @@
 <?php
 
+/*
+ * Blockexplorer for Umkoin (SHA256) crypto currency
+ * 
+ * Author:  vmta
+ * Date:    5 Jan 2018
+ * 
+ * Version_Major: 0
+ * Version_Minor: 0
+ * Version_Build: 1
+ * 
+ * Changelog:
+ * 
+ */
+
+/* Load configuration file */
 require "./include/config.php";
 
+/* Autoload and register any classes not previously loaded */
 spl_autoload_register(function ($class_name){
   $classFile = "include/" . $class_name . ".php";
   if( is_file($classFile) && ! class_exists($class_name) )
     include $classFile;
 });
 
+/* Construct underlying RPC daemon connection credentials */
 $server = "$proto://$host:$port";
 $auth = "$rpcuser:$rpcpass";
 
+/* Create a Block object */
 $block = new Block($server, $auth);
 
+/* Provide human readable number formatting */
 function prettynum($val, $index = "K", $precision = 4) {
   $res = "";
   switch ($index) {
@@ -20,8 +39,14 @@ function prettynum($val, $index = "K", $precision = 4) {
       $res = round(($val / 1024), $precision) . " K";
       break;
     case "M":
-       $res = round(($val / pow(1024, 2)), $precision) . " M";
-       break;
+      $res = round(($val / pow(1024, 2)), $precision) . " M";
+      break;
+    case "G":
+      $res = round(($val / pow(1024, 3)), $precision) . " G";
+      break;
+    case "P":
+      $res = round(($val / pow(1024, 4)), $precision) . " P";
+      break;
   }
   return $res;
 }
@@ -84,56 +109,56 @@ function prettynum($val, $index = "K", $precision = 4) {
                     <i class="fa fa-language" aria-hidden="true"></i> UA
                 </a></li>
 	//-->
+    <!--
                 <button rel="/css/themes/dark/style.css" class="btn btn-default theme-switch" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Switch to Night Mode">
                     <i class="fa fa-moon-o"></i>
                 </button>
                 <button rel="/css/themes/white/style.css" class="btn btn-default theme-switch" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Switch to Day Mode">
                     <i class="fa fa-sun-o"></i>
                 </button>
-
-                <li style="display:none;"><a class="hot_link" data-page="blockchain_block.php" href="#blockchain_block"><i class="fa fa-cubes"></i> Block
-                </a></li>
-
-                <li style="display:none;"><a class="hot_link" data-page="blockchain_transaction.php" href="#blockchain_transaction"><i class="fa fa-cubes"></i> Transaction
-                </a></li>
-
-				<li style="display:none;">
-        <a class="hot_link" data-page="blockchain_payment_id.php" href="#blockchain_payment_id">
-        <i class="fa fa-cubes"></i> Transactions by Payment ID
+    //-->
+                <li style="display:none;">
+                <a class="hot_link" data-page="blockchain_block.php" href="#blockchain_block">
+                <i class="fa fa-cubes"></i> Block
                 </a>
                 </li>
 
+                <li style="display:none;">
+                <a class="hot_link" data-page="blockchain_transaction.php" href="#blockchain_transaction">
+                <i class="fa fa-cubes"></i> Transaction
+                </a>
+                </li>
+
+				<li style="display:none;">
+                <a class="hot_link" data-page="blockchain_payment_id.php" href="#blockchain_payment_id">
+                <i class="fa fa-cubes"></i> Transactions by Payment ID
+                </a>
+                </li>
+    <!--
                 <li><a  style="display:none;" class="hot_link" data-page="support.php" href="#support">
                     <i class="fa fa-comments"></i> Help
                 </a></li>
-
+    //-->
             </ul>
 
 
 			<div class="nav col-md-6 navbar-right explorer-search">
 				<div class="input-group">
 					<input class="form-control" placeholder="Search by block height / hash, transaction hash, payment id" id="txt_search">
-					<span class="input-group-btn"><button class="btn btn-default" type="button" id="btn_search">
+					<span class="input-group-btn">
+                    <button class="btn btn-default" type="button" id="btn_search">
 						<span><i class="fa fa-search"></i> Search</span>
-					</button></span>
+					</button>
+                    </span>
 				</div>
 			</div>
-
 		</div>
-	  </div>
+	</div>
 </div>
-
 
 <div id="content">
 	<div class="container">
 		<div id="page">
-
-
-
-
-
-
-
 
         <div class="row">
 	<div class="col-sm-12 col-md-6">
@@ -200,7 +225,7 @@ function prettynum($val, $index = "K", $precision = 4) {
                             <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Difficulty for next block. Ratio at which at the current hashing speed blocks will be mined with 4 minutes interval.">
                                 <i class="fa fa-unlock-alt"></i> Difficulty: 
                                     <span id="networkDifficulty">
-                                        <?php print_r($block->getdifficulty()); ?>
+                                        <?php print_r(prettynum($block->getdifficulty(), "K", 4)); ?>
                                     </span>
                             </a>
                         </li>
@@ -209,7 +234,7 @@ function prettynum($val, $index = "K", $precision = 4) {
                             <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Average difficulty by last 30 blocks.">
                                 <i class="fa fa-lock"></i> Average Difficulty: 
                                     <span id="avgDifficulty">
-                                        <?php print_r($block->getaveragedifficulty()); ?>
+                                        <?php print_r(prettynum($block->getaveragedifficulty(), "K", 4)); ?>
                                     </span>
                             </a>
                         </li>
@@ -219,7 +244,7 @@ function prettynum($val, $index = "K", $precision = 4) {
                             <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Current estimated network hash rate. Calculated by current difficulty.">
                                 <i class="fa fa-tachometer"></i> Hash Rate: 
                                 <span id="networkHashrate">
-                                      <?php print_r(prettynum($block->getnetworkhashps(), "M", 3) . "H/s"); ?>
+                                      <?php print_r(prettynum($block->getnetworkhashps(), "G", 3) . "H/s"); ?>
                                 </span>
                             </a>
                         </li>
