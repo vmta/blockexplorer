@@ -471,12 +471,31 @@ class Api {
 
 
   /* 11
-   *
-   * Returns
+   * getmempooldescendants "txid"
+   * 
+   * Returns JSON object, array of descending transaction hashes.
+   * 
+     Input:
+     {
+       "param": "77afbfb7f3e0c017cc879d9aed5f5e77fe7d42f2ec360b251bbf4b3bf5a9e840"
+     }
+
+     Output:
+     [
+       "d9788638b675a5468ddb4e0f010730b3616f1363d7872d00cf4654dad178b12f",
+       "6ce4296c9fac98bc74689128b00bdce614655bbad7bb10df2e4cc363eee4399f"
+     ]
    *
    */
   public function getmempooldescendants($txid = 0) {
+
     $args = $this->args;
+    $args["method"] = "getmempooldescendants";
+    $args["params"] = ["$txid"];
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
