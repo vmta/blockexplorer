@@ -1,0 +1,5 @@
+include/config.php
+
+*.bak
+*.conf
+*.old

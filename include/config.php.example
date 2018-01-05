@@ -1,0 +1,29 @@
+<?php
+
+/*
+ * Authentication
+ *
+ * $proto - specify protocol (http or https)
+ * $host - specify host IP or FQDN
+ * $port - specify RPC port to connect to
+ * $rpcuser - define RPC user
+ * $rpspass - define RPC password
+ *
+ */
+$proto = "http";
+$host = "127.0.0.1";
+$port = 6332;
+$rpcuser = "rpcuser";
+$rpcpass = "rpcpass";
+
+/*
+ * Block Reward
+ *
+ * $breward - specify initial block reward in smallest indivisible units
+ * $halving - specify how many blocks to be mined since reward is halved
+ *
+ */
+$breward = 5000000000;
+$halving = 210000;
+
+?>
