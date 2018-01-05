@@ -1,6 +1,21 @@
 <?php
 
 
+/*
+ * Api class for Umkoin (SHA256) crypto currency
+ * 
+ * Author:  vmta
+ * Date:    5 Jan 2018
+ * 
+ * Version_Major: 0
+ * Version_Minor: 0
+ * Version_Build: 1
+ * 
+ * Changelog:
+ * 
+ */
+
+
 class Api {
 
   /*
@@ -428,12 +443,30 @@ class Api {
 
 
   /* 10
-   *
-   * Returns
+   * getmempoolancestors "txid"
+   * 
+   * Returns JSON object, array of ancestor transaction hashes.
+   * 
+     Input:
+     {
+       "params": "77afbfb7f3e0c017cc879d9aed5f5e77fe7d42f2ec360b251bbf4b3bf5a9e840"
+     }
+
+     Output:
+     [
+       "f0b0138f08ff67674736e46d9b01be723b13f1cdac00fe8c1d4cf9b2b5e903a1"
+     ]
    *
    */
   public function getmempoolancestors($txid = 0) {
+
     $args = $this->args;
+    $args["method"] = "getmempoolancestors";
+    $args["params"] = ["$txid"];
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
