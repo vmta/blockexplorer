@@ -543,7 +543,7 @@ class Api {
 
 
   /* 13
-   * getmempool
+   * getmempoolinfo
    *
    * Returns JSON object containing info on mempool state
    * 
@@ -643,12 +643,33 @@ class Api {
 
 
   /* 16
-   *
-   * Returns
+   * gettxoutproof "txid" ("blockhash")
+   * 
+   * Returns a hex-encoded proof that "txid" was included in a block.
+   * 
+     Input:
+     {
+       "params": ["txid", ("blockhash")]
+     }
+
+     Output:
+     {
+       NOTE: By default this function only works sometimes.
+     }
    *
    */
-  public function gettxoutproof($txid) {
+  public function gettxoutproof($txid, $hash) {
+
     $args = $this->args;
+    $args["method"] = "gettxoutproof";
+    $args["params"] = ["$txid"];
+
+    if (!empty($hash))
+      $args["params"][] = "$hash";
+    
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
