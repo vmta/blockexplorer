@@ -717,12 +717,30 @@ class Api {
 
 
   /* 19
+   * pruneblockchain height
    *
-   * Returns
+   * Returns height of the last block pruned.
    *
+     Input:
+     {
+       "params": 1000
+     }
+
+     Output:
+     {
+
+     }
+   * 
    */
-  public function pruneblockchain() {
+  public function pruneblockchain($height = 0) {
+
     $args = $this->args;
+    $args["method"] = "pruneblockchain";
+    $args["params"] = [$height];
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
