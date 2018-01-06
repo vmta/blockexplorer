@@ -543,12 +543,33 @@ class Api {
 
 
   /* 13
+   * getmempool
    *
-   * Returns
+   * Returns JSON object containing info on mempool state
+   * 
+     Input:
+     {
+     }
+
+     Output:
+     {
+       "size": 0,
+       "bytes": 0,
+       "usage": 96,
+       "maxmempool": 300000000,
+       "mempoolminfee": 0.00001000,
+       "minrelaytxfee": 0.00001000
+     }
    *
    */
   public function getmempoolinfo() {
+
     $args = $this->args;
+    $args["method"] = "getmempoolinfo";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
