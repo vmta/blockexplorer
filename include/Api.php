@@ -1159,12 +1159,22 @@ class Api {
 
 
   /* 42
-   *
-   * Returns
-   *
+   * ping
+   * 
+   * Requests that a ping be sent to all other nodes, to measure ping time.
+   * Ping command is handled in queue with all other commands, so it
+   * measures processing backlog, not just network ping. Results provided
+   * in getpeerinfo, pingtime and pingwait fields are decimal seconds.
+   * 
    */
   public function ping() {
+
     $args = $this->args;
+    $args["method"] = "ping";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1174,7 +1184,13 @@ class Api {
    *
    */
   public function setban($subnet, $cmd, $bantime, $absolute) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1184,8 +1200,14 @@ class Api {
    *
    */
   public function setnetworkactive($flag) {
+
     // $flag may be one of true|false
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1200,7 +1222,13 @@ class Api {
    *
    */
   public function combinerawtransaction($hexstring) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1210,7 +1238,13 @@ class Api {
    *
    */
   public function createrawtransaction() {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1220,7 +1254,13 @@ class Api {
    *
    */
   public function decoderawtransaction($hexstring) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1230,7 +1270,13 @@ class Api {
    *
    */
   public function decodescript($hexstring) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1240,7 +1286,13 @@ class Api {
    *
    */
   public function fundrawtransaction($hexstring, $options) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1325,7 +1377,13 @@ class Api {
    *
    */
   public function sendrawtransaction($hexstring, $allowhighfees) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1335,7 +1393,13 @@ class Api {
    *
    */
   public function signrawtransaction() {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1350,9 +1414,15 @@ class Api {
    *
    */
   //public function createmultisig($nrequired, $key = []) {
-    public function createmultisig($nrequired, $key) {
-      $args = $this->args;
-    }
+  public function createmultisig($nrequired, $key) {
+
+    $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
+  }
   
   
   /* 54
@@ -1361,7 +1431,13 @@ class Api {
    *
    */
   public function estimatesmartfee($nblocks = 0) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
