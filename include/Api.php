@@ -830,12 +830,19 @@ class Api {
 
 
   /* 24
-   *
-   * Returns
+   * stop
+   * 
+   * Stops the underlying daemon. (You're warned!)
    *
    */
   public function stop() {
+
     $args = $this->args;
+    $args["method"] = "stop";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
