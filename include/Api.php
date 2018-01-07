@@ -1655,14 +1655,26 @@ class Api {
 
 
   /* 67
-   *
-   * Returns
+   * getaccount "address"
+   * 
+   * DEPRECATED. Returns the account associated with the given address.
+   * 
+     Input:
+     {
+       "params": "address"
+     }
+
+     Output:
+     {
+
+     }
    *
    */
   public function getaccount($address) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = "getaccount";
+    $args["params"] = ["$address"];
 
     $res = $this->call($args);
     if ($res)
