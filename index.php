@@ -286,7 +286,7 @@ function prettynum($val, $index = "K", $precision = 4) {
 	<h3 class="panel-title"><i class="fa fa-exchange fa-fw" aria-hidden="true"></i> Transaction pool 
 	<span id="mempool_count" class="badge">
     <?php
-      $counter = $block->getmempooltxcount();
+      $counter = $block->getmempoolinfosize();
       if (!empty($counter))
         print_r($counter); 
     ?>
@@ -310,7 +310,6 @@ function prettynum($val, $index = "K", $precision = 4) {
 				</tr>
 				</thead>
 				<tbody id="mem_pool_rows">
-					
 
 <?php
 
@@ -330,7 +329,7 @@ if ($txids_length > 0) {
     for ($i = $txids_length - 1; $i >= 0; $i--) {
 //        $transactions[$i] = $block->getMemPoolTransaction($txids[$i]);
         $transactions[$i] = $block->getmempoolentry($txids[$i]);
-        $transactions_value[$i] = $block->gettxout($txids[$i], 0);
+        $transactions_value[$i] = $block->gettxout($txids[$i], 1, true);
     }
 
 
