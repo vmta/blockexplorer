@@ -745,12 +745,28 @@ class Api {
 
 
   /* 20
-   *
-   * Returns
+   * verifychain
+   * 
+   * Returns boolean value indicating whether chain is fine.
+   * 
+     Input:
+     {
+     }
+
+     Output:
+     {
+       true
+     }
    *
    */
   public function verifychain() {
+
     $args = $this->args;
+    $args["method"] = "verifychain";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
