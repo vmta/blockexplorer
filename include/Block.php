@@ -118,6 +118,18 @@ class Block extends Api {
       return $res['transactions'];
   }
 
+
+  /*
+   * Returns unconfirmed transactions count in mempool
+   * based on the original getrawmempool set of data.
+   */
+  public function getmempooltxcount() {
+
+    $res = $this->getrawmempool();
+    if ($res)
+      return count($res);
+  }
+
 }
 
 ?>
