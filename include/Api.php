@@ -1683,8 +1683,17 @@ class Api {
 
 
   /* 68
-   *
-   * Returns
+   * getaccountaddress "account"
+   * 
+   * DEPRECATED. Returns the current Umkoin address for receiving payments to this account.
+   * 
+     Input:
+     {
+       "params": "account"
+     }
+
+     Output:
+     
    *
    */
   public function getaccountaddress($account) {
