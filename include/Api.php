@@ -1027,12 +1027,38 @@ class Api {
 
 
   /* 38
-   *
-   * Returns
+   * getnettotals
+   * 
+   * Returns JSON object with various network data.
+   * 
+     Input:
+     {
+     }
+
+     Output:
+     {
+       "totalbytesrecv": 651917,
+       "totalbytessent": 427366,
+       "timemillis": 1515287291358,
+       "uploadtarget": {
+         "timeframe": 86400,
+         "target": 0,
+         "target_reached": false,
+         "serve_historical_blocks": true,
+         "bytes_left_in_cycle": 0,
+         "time_left_in_cycle": 0
+       }
+     }
    *
    */
   public function getnettotals() {
+
     $args = $this->args;
+    $args["method"] = "getnettotals";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
