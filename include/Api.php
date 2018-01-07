@@ -1029,7 +1029,7 @@ class Api {
   /* 38
    * getnettotals
    * 
-   * Returns JSON object with various network data.
+   * Returns JSON object with various historical network data.
    * 
      Input:
      {
@@ -1063,12 +1063,63 @@ class Api {
 
 
   /* 39
-   *
-   * Returns
+   * getnetworkinfo
+   * 
+   * Returns JSON object representing current network status.
+   * 
+     Input:
+     {
+     }
+
+     Output:
+     {
+       "version": 159913,
+       "subversion": "/Satoshi:0.15.99.13/",
+       "protocolversion": 70015,
+       "localservices": "000000000000040d",
+       "localrelay": true,
+       "timeoffset": 0,
+       "networkactive": true,
+       "connections": 4,
+       "networks": [
+         {
+           "name": "ipv4",
+           "limited": false,
+           "reachable": true,
+           "proxy": "",
+           "proxy_randomize_credentials": false
+         },
+         {
+           "name": "ipv6",
+           "limited": true,
+           "reachable": false,
+           "proxy": "",
+           "proxy_randomize_credentials": false
+         },
+         {
+           "name": "onion",
+           "limited": true,
+           "reachable": false,
+           "proxy": "",
+           "proxy_randomize_credentials": false
+         }
+       ],
+       "relayfee": 0.00001000,
+       "incrementalfee": 0.00001000,
+       "localaddresses": [
+       ],
+       "warnings": ""
+     }
    *
    */
   public function getnetworkinfo() {
+
     $args = $this->args;
+    $args["method"] = "getnetworkinfo";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
