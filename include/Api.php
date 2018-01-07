@@ -847,12 +847,28 @@ class Api {
 
 
   /* 25
-   *
-   * Returns
+   * uptime
+   * 
+   * Returns stripped JSON object, an int in seconds since daemon last start.
+   * 
+     Input:
+     {
+     }
+     
+     Output:
+     {
+       131427
+     }
    *
    */
   public function uptime() {
+
     $args = $this->args;
+    $args["method"] = "uptime";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
