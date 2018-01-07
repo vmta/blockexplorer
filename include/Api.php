@@ -633,7 +633,7 @@ class Api {
   public function gettxout($txid, $vout = 1, $include_mempool = false) {
 
     $args = $this->args;
-    $args["method"] = "__FUNCTION__";
+    $args["method"] = "gettxout";
     $args["params"] = ["$txid", $vout, $include_mempool];
 
     $res = $this->call($args);
