@@ -1134,12 +1134,27 @@ class Api {
 
 
   /* 41
-   *
-   * Returns
+   * listbanned
+   * 
+   * Returns stripped JSON object, an array of banned hosts.
+   * 
+     Input:
+     {
+     }
+
+     Output:
+     [
+     ]
    *
    */
   public function listbanned() {
+
     $args = $this->args;
+    $args["method"] = "listbanned";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
