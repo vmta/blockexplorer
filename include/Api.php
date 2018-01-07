@@ -786,12 +786,36 @@ class Api {
 
 
   /* 22
-   *
-   * Returns
+   * getmemoryinfo
+   * 
+   * Returns JSON object indicating memory information.
+   * 
+     Input:
+     {
+     }
+
+     Output:
+     {
+       "locked": {
+         "used": 65856,
+         "free": 261824,
+         "total": 327680,
+         "locked": 65536,
+         "chunks_used": 2058,
+         "chunks_free": 3
+       }
+     }
+
    *
    */
   public function getmemoryinfo() {
+
     $args = $this->args;
+    $args["method"] = "getmemoryinfo";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
