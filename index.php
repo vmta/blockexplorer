@@ -69,7 +69,6 @@ function prettynum($val, $index = "K", $precision = 4) {
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="//fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
-<!--  <script src="/config.js"></script> //-->
 </head>
 
 
@@ -93,47 +92,35 @@ function prettynum($val, $index = "K", $precision = 4) {
 
             <ul class="nav navbar-nav navbar-left explorer_menu">
 
-			    <li><a class="hot_link" data-page="home.php" href="#">
+			    <li>
+                <a class="hot_link" data-page="home.php" href="#">
                     <i class="fa fa-cubes" aria-hidden="true"></i> Block Explorer
                 </a></li>
 
-				<li><a class="hot_link" data-page="pools.php" href="#pools">
+				<li>
+                <a class="hot_link" data-page="pools.php" href="#pools">
                     <i class="fa fa-gavel" aria-hidden="true"></i> Pools
                 </a></li>
 
-				<li><a class="hot_link" data-page="api.php" href="#api">
+				<li>
+                <a class="hot_link" data-page="api.php" href="#api">
                     <i class="fa fa-code" aria-hidden="true"></i> API
                 </a></li>
- 	<!--
-			    <li><a  class="hot_link" href="/">
-                    <i class="fa fa-language" aria-hidden="true"></i> UA
-                </a></li>
-	//-->
-    <!--
-                <button rel="/css/themes/dark/style.css" class="btn btn-default theme-switch" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Switch to Night Mode">
-                    <i class="fa fa-moon-o"></i>
-                </button>
-                <button rel="/css/themes/white/style.css" class="btn btn-default theme-switch" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Switch to Day Mode">
-                    <i class="fa fa-sun-o"></i>
-                </button>
-    //-->
+
                 <li style="display:none;">
                 <a class="hot_link" data-page="blockchain_block.php" href="#blockchain_block">
-                <i class="fa fa-cubes"></i> Block
-                </a>
-                </li>
+                    <i class="fa fa-cubes"></i> Block
+                </a></li>
 
                 <li style="display:none;">
                 <a class="hot_link" data-page="blockchain_transaction.php" href="#blockchain_transaction">
-                <i class="fa fa-cubes"></i> Transaction
-                </a>
-                </li>
+                    <i class="fa fa-cubes"></i> Transaction
+                </a></li>
 
 				<li style="display:none;">
                 <a class="hot_link" data-page="blockchain_payment_id.php" href="#blockchain_payment_id">
-                <i class="fa fa-cubes"></i> Transactions by Payment ID
-                </a>
-                </li>
+                    <i class="fa fa-cubes"></i> Transactions by Payment ID
+                </a></li>
     <!--
                 <li><a  style="display:none;" class="hot_link" data-page="support.php" href="#support">
                     <i class="fa fa-comments"></i> Help
@@ -253,7 +240,7 @@ function prettynum($val, $index = "K", $precision = 4) {
                             <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Average estimated network hash rate. Calculated by average difficulty.">
                                 <i class="fa fa-clock-o"></i> Average Hash Rate: 
                                 <span id="avgHashrate">
-                                    <?php print_r(prettynum($block->getaveragenetworkhashps(), "M", 3) . "H/s"); ?>
+                                    <?php print_r(prettynum($block->getaveragenetworkhashps(), "G", 3) . "H/s"); ?>
                                 </span>
                             </a>
                         </li>
@@ -297,7 +284,13 @@ function prettynum($val, $index = "K", $precision = 4) {
   <div class="panel-heading">
   
 	<h3 class="panel-title"><i class="fa fa-exchange fa-fw" aria-hidden="true"></i> Transaction pool 
-	<span id="mempool_count" class="badge"></span>
+	<span id="mempool_count" class="badge">
+    <?php
+      $counter = $block->getmempooltxcount();
+      if (!empty($counter))
+        print_r($counter); 
+    ?>
+    </span>
 	<span class="text-default" data-toggle="tooltip" data-placement="right" data-original-title="Recent transactions waiting to be included into a block. Once it happens a transaction gets into the blockchain and becomes confirmed."><i class="fa fa-question-circle"></i></span>
     </h3>
 	
