@@ -603,13 +603,13 @@ class Api {
 
 
   /* 15
-   * gettxout "txid" vout
+   * gettxout "txid" vout include_mempool
    *
    * Returns JSON object.
    * 
      Input:
      {
-       "params": ["txid", vout]
+       "params": ["txid", vout, include_mempool]
      }
 
      Output:
@@ -630,11 +630,11 @@ class Api {
      }
    *
    */
-  public function gettxout($txid, $vout = 0) {
+  public function gettxout($txid, $vout = 1, $include_mempool = false) {
 
     $args = $this->args;
-    $args["method"] = "gettxout";
-    $args["params"] = ["$txid", $vout];
+    $args["method"] = "__FUNCTION__";
+    $args["params"] = ["$txid", $vout, $include_mempool];
 
     $res = $this->call($args);
     if($res)
@@ -1693,7 +1693,7 @@ class Api {
      }
 
      Output:
-     
+
    *
    */
   public function getaccountaddress($account) {
