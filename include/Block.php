@@ -121,13 +121,13 @@ class Block extends Api {
 
   /*
    * Returns unconfirmed transactions count in mempool
-   * based on the original getrawmempool set of data.
+   * based on the original getmempoolinfo set of data.
    */
-  public function getmempooltxcount() {
+  public function getmempoolinfosize() {
 
-    $res = $this->getrawmempool();
+    $res = $this->getmempoolinfo();
     if ($res)
-      return count($res);
+      return $res['size'];
   }
 
 }
