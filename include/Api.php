@@ -1447,7 +1447,13 @@ class Api {
    *
    */
   public function signmessagewithprivkey($privkey, $message) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1457,7 +1463,13 @@ class Api {
    *
    */
   public function validateaddress($address) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1467,7 +1479,13 @@ class Api {
    *
    */
   public function verifymessage($address, $signature, $message) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1482,7 +1500,13 @@ class Api {
    *
    */
   public function abandontransaction($txid) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1492,7 +1516,13 @@ class Api {
    *
    */
   public function abortscan() {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1502,7 +1532,13 @@ class Api {
    *
    */
   public function addmultisigaddress($nrequired, $key, $account) {
+    
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1512,7 +1548,13 @@ class Api {
    *
    */
   public function addwithnessaddress($address) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1522,7 +1564,13 @@ class Api {
    *
    */
   public function backupwallet($destination) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1532,7 +1580,13 @@ class Api {
    *
    */
   public function bumpfee($txid, $options) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1542,7 +1596,13 @@ class Api {
    *
    */
   public function dumpprivkey($address) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1552,17 +1612,45 @@ class Api {
    *
    */
   public function dumpwallet($filename) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
   /* 66
+   * encryptwallet "passphrase"
+   * 
+   * Encrypts the wallet with 'passphrase'. This is for first time encryption.
+   * After this, any calls that interact with private keys such as sending or signing
+   * will require the passphrase to be set prior the making these calls.
+   * Use the walletpassphrase call for this, and then walletlock call.
+   * If the wallet is already encrypted, use the walletpassphrasechange call.
+   * Note that this will shutdown the server.
    *
-   * Returns
+     Input:
+     {
+       "params": "passphrase" (string)
+     }
+
+     Output:
+     {
+     }
    *
    */
   public function encryptwallet($passphrase) {
+
     $args = $this->args;
+    $args["method"] = "encryptwallet";
+    $args["params"] = ["$passphrase"];
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1572,7 +1660,13 @@ class Api {
    *
    */
   public function getaccount($address) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1582,7 +1676,13 @@ class Api {
    *
    */
   public function getaccountaddress($account) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1592,7 +1692,13 @@ class Api {
    *
    */
   public function getaddressbyaccount($account) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1602,8 +1708,14 @@ class Api {
    *
    */
   public function getbalance($account, $minconf = 0, $include_watchonly) {
+
     // $include_watchonly may be one of true|false
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1613,7 +1725,13 @@ class Api {
    *
    */
   public function getnewaddress($account) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1623,7 +1741,13 @@ class Api {
    *
    */
   public function getrawchangeaddress() {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1633,7 +1757,13 @@ class Api {
    *
    */
   public function getreceivedbyaccount($account, $minconf = 0) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1643,7 +1773,13 @@ class Api {
    *
    */
   public function getreceivedbyaddress($address, $minconf = 0) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1653,8 +1789,14 @@ class Api {
    *
    */
   public function gettransaction($txid, $include_watchonly) {
+
     // $include_watchonly may be one of true|false
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1664,7 +1806,13 @@ class Api {
    *
    */
   public function getunconfirmedbalance() {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1674,7 +1822,13 @@ class Api {
    *
    */
   public function getwalletinfo() {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1684,7 +1838,13 @@ class Api {
    *
    */
   public function importaddress($address, $label, $rescan, $p2sh) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1694,7 +1854,13 @@ class Api {
    *
    */
   public function importmultu($requests, $options) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1704,7 +1870,13 @@ class Api {
    *
    */
   public function importprivkey($privkey, $label, $rescan) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1714,7 +1886,13 @@ class Api {
    *
    */
   public function importprunedfunds() {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1724,7 +1902,13 @@ class Api {
    *
    */
   public function importpubkey($pubkey, $label, $rescan) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1734,7 +1918,13 @@ class Api {
    *
    */
   public function importwallet($filename) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1744,7 +1934,13 @@ class Api {
    *
    */
   public function keypoolrefill($newsize) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1754,7 +1950,13 @@ class Api {
    *
    */
   public function listaccounts($minconf = 0, $include_watchonly) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1764,7 +1966,13 @@ class Api {
    *
    */
   public function listaddressgroupings() {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1774,7 +1982,13 @@ class Api {
    *
    */
   public function listlockunspent() {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1784,7 +1998,13 @@ class Api {
    *
    */
   public function listreceivedbyaccount($minconf = 0, $include_empty, $include_watchonly) {
+    
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1794,7 +2014,13 @@ class Api {
    *
    */
   public function listreceivedbyaddress($minconf = 0, $include_empty, $include_watchonly) {
+    
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1804,7 +2030,13 @@ class Api {
    *
    */
   public function listsinceblock($blockhash, $target_confirmations, $include_watchonly, $include_removed) {
+    
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1814,10 +2046,16 @@ class Api {
    *
    */
   public function listtransactions($account, $count, $skip, $include_watchonly) {
+
     // $count is of type int
     // $skip is of type int
     // $include_watchonly may be one of true|false
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1828,7 +2066,13 @@ class Api {
    */
   //public function listunspent($minconf = 0, $maxconf = 100, $addresses = [], $include_unsafe, $query_options = []) {
   public function listunspent($minconf = 0, $maxconf = 100, $addresses, $include_unsafe, $query_options) {
+    
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1838,7 +2082,13 @@ class Api {
    *
    */
   public function listwallets() {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1848,7 +2098,13 @@ class Api {
    *
    */
   public function lockunspent($unlock, $txid) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1858,7 +2114,13 @@ class Api {
    *
    */
   public function move($fromaccount, $toaccount, $minconf = 0, $comment) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1868,7 +2130,13 @@ class Api {
    *
    */
   public function removeprunedfunds($txid) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1878,7 +2146,13 @@ class Api {
    *
    */
   public function sendfrom($fromaccount, $toaddress, $amount, $minconf = 0, $comment, $comment_to) {
+    
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1888,7 +2162,13 @@ class Api {
    *
    */
   public function sendmany($fromaccount, $address, $amount, $minconf = 0, $comment, $replaceable, $conf_target, $estimate_mode) {
+    
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1898,7 +2178,13 @@ class Api {
    *
    */
   public function sendtoaddress($address, $amount, $comment, $comment_to, $subtractfeefromamount, $replaceable, $conf_target, $estimate_mode) {
+    
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1908,7 +2194,13 @@ class Api {
    *
    */
   public function setaccount($address, $account) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
@@ -1918,7 +2210,13 @@ class Api {
    *
    */
   public function signmessage($address, $message) {
+
     $args = $this->args;
+    $args["method"] = "";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
