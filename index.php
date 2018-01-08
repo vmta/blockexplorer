@@ -340,7 +340,7 @@ if ($txids_length > 0) {
         $tx = $block->decoderawtransaction($rawtx)['vout'];
         $amount = 0;
         for ($j = 0; $j < count($tx); $j ++) {
-            $amount += $tx[$j]['amount'];
+            $amount += $tx[$j]['value'];
         }
         $transactions_value[$i] = $amount;
     }
