@@ -1424,11 +1424,11 @@ class Api {
       }
    * 
    */
-  public function getrawtransaction($txid, $verbose = false, $blockhash) {
+  public function getrawtransaction($txid, $verbose = false, $blockhash = "") {
 
     $params_array = ["$txid", $verbose];
     if (!empty($blockhash))
-      $params_array[] = $blockhash;
+      $params_array[] = "$blockhash";
 
     $args = $this->args;
     $args["method"] = "getrawtransaction";
