@@ -1297,9 +1297,9 @@ class Api {
 
 
   /* 50
-   * getrawtransaction "txid" (true|false)
+   * getrawtransaction "txid" (verbose "blockhash")
    *
-   * Returns JSON object.{
+   * Returns JSON object.
    * 
      Input:
      {
@@ -1359,11 +1359,15 @@ class Api {
       }
    * 
    */
-  public function getrawtransaction($txid, $flag = true) {
+  public function getrawtransaction($txid, $verbose = false, $blockhash) {
+
+    $params_array = ["$txid", $verbose];
+    if (!empty($blockhash))
+      $params_array[] = $blockhash;
 
     $args = $this->args;
     $args["method"] = "getrawtransaction";
-    $args["params"] = ["$txid", $flag];
+    $args["params"] = $params_array;
 
     $res = $this->call($args);
     if($res)
