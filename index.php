@@ -316,6 +316,11 @@ function prettynum($val, $index = "K", $precision = 4) {
 $txids = $block->getrawmempool();
 $txids_length = count($txids);
 
+/*
+ * @TODO construct link url to get TXOUT details
+ */
+$html_str = "";
+
 //var_dump($txids);
 //print_r("<br />");
 //print_r("<br />");
@@ -324,39 +329,59 @@ $txids_length = count($txids);
 //print_r("<br />");
 
 if ($txids_length > 0) {
+
     $transactions = [];
     $transactions_value = [];
+
     for ($i = $txids_length - 1; $i >= 0; $i--) {
-//        $transactions[$i] = $block->getMemPoolTransaction($txids[$i]);
         $transactions[$i] = $block->getmempoolentry($txids[$i]);
         $transactions_value[$i] = $block->gettxout($txids[$i], 1, true);
     }
 
-
     for($i = $txids_length - 1; $i >= 0; $i--) {
 
-        print_r("<tr>");
-        print_r("<td>");
-        print_r(date("d.m.Y H:i:s", $transactions[$i]["time"]));
-        print_r("</td>");
-        print_r("<td>");
-        print_r($transactions_value[$i]["value"]);
-        print_r("</td>");
-        print_r("<td>");
-        print_r($transactions[$i]["fee"]);
-        print_r("</td>");
-        print_r("<td>");
-        print_r($transactions[$i]["size"]);
-        print_r("</td>");
-        print_r("<td>");
-        print_r($transactions[$i]["wtxid"]);
-        print_r("</td>");
-        print_r("</tr>");
+        $html_str .= "<tr>";
+        //print_r("<tr>");
+        $html_str .= "<td>";
+        //print_r("<td>");
+        $html_str .= date("d.m.Y H:i:s", $transactions[$i]["time"]);
+        //print_r(date("d.m.Y H:i:s", $transactions[$i]["time"]));
+        $html_str .= "</td>";
+        //print_r("</td>");
+        $html_str .= "<td>";
+        //print_r("<td>");
+        $html_str .= $transactions_value[$i]["value"];
+        //print_r($transactions_value[$i]["value"]);
+        $html_str .= "</td>";
+        //print_r("</td>");
+        $html_str .= "<td>";
+        //print_r("<td>");
+        $html_str .= $transactions[$i]["fee"];
+        //print_r($transactions[$i]["fee"]);
+        $html_str .= "</td>";
+        //print_r("</td>");
+        $html_str .= "<td>";
+        //print_r("<td>");
+        $html_str .= $transactions[$i]["size"];
+        //print_r($transactions[$i]["size"]);
+        $html_str .= "</td>";
+        //print_r("</td>");
+        $html_str .= "<td>";
+        //print_r("<td>");
+        $tx_id = $transactions[$i]["wtxid"];
+        $html_str .= "<a href=\"http://" . $_SERVER['HTTP_HOST'] . "/index.php?txid=" . $tx_id . "\">" . $tx_id . "</a>";
+        //print_r($transactions[$i]["wtxid"]);
+        $html_str .= "</td>";
+        //print_r("</td>");
+        $html_str .= "</tr>";
+        //print_r("</tr>");
 
     }
 } else {
     print_r("There are no unconfirmed transactions.");
 }
+
+print_r($html_str);
 
 ?>
 
