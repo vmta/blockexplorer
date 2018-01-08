@@ -335,7 +335,14 @@ if ($txids_length > 0) {
 
     for ($i = $txids_length - 1; $i >= 0; $i--) {
         $transactions[$i] = $block->getmempoolentry($txids[$i]);
-        $transactions_value[$i] = $block->gettxout($txids[$i], 1, true);
+
+        $rawtx = $block->getrawtransaction($txids[$i], false);
+        $tx = $block->decoderawtransaction($rawtx)['vout'];
+        $amount = 0;
+        for ($j = 0; $j < count($tx); $j ++) {
+            $amount += $tx[$j]['amount'];
+        }
+        $transactions_value[$i] = $amount;
     }
 
     for($i = $txids_length - 1; $i >= 0; $i--) {
@@ -351,7 +358,7 @@ if ($txids_length > 0) {
         $html_str .= "<td>";
         //print_r("<td>");
         $html_str .= $transactions_value[$i]["value"];
-        //print_r($transactions_value[$i]["value"]);
+        //print_r($transactions_value[$i]);
         $html_str .= "</td>";
         //print_r("</td>");
         $html_str .= "<td>";

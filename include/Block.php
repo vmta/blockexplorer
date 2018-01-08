@@ -51,6 +51,18 @@ class Block extends Api {
 
 
   /*
+   * Returns unconfirmed transactions count in mempool
+   * based on the original getmempoolinfo set of data.
+   */
+  public function getmempoolinfosize() {
+
+    $res = $this->getmempoolinfo();
+    if ($res)
+      return $res['size'];
+  }
+
+
+  /*
    * Returns miner reward for the block based on
    * coinbase transaction amount.
    */
@@ -107,6 +119,21 @@ class Block extends Api {
 
 
   /*
+   * Returns transactions amount as the sum of all VOUTs
+   * based on the mix of getrawtransaction and
+   * decoderawtransaction functions.
+   */
+  public function gettransactionamount($txid) {
+
+    $rawtx = $this->getrawtransaction($txid);
+    $tx = $this->decoderawtransaction($rawtx);
+
+    if ($res)
+      return $res['transactions'];
+  }
+
+
+  /*
    * Returns transactions count based on the original
    * gettxoutsetinfo set of data by extracting
    * 'transactions' field.
@@ -118,17 +145,6 @@ class Block extends Api {
       return $res['transactions'];
   }
 
-
-  /*
-   * Returns unconfirmed transactions count in mempool
-   * based on the original getmempoolinfo set of data.
-   */
-  public function getmempoolinfosize() {
-
-    $res = $this->getmempoolinfo();
-    if ($res)
-      return $res['size'];
-  }
 
 }
 
