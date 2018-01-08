@@ -1249,14 +1249,79 @@ class Api {
 
 
   /* 47
-   *
-   * Returns
+   * decoderawtransaction "hexstring" ( iswitness )
+   * 
+   * Returns JSON object representing the serialized, hex-encoded transaction.
+   * 
+     Input:
+     {
+       "params": "hexstring"
+     }
+
+     Output:
+     {
+       "txid": "9dad93c8cf6b1a3179005ae8bdea297054ad65148aa91772c980d5d7e53b8f5e",
+       "hash": "9dad93c8cf6b1a3179005ae8bdea297054ad65148aa91772c980d5d7e53b8f5e",
+       "version": 2,
+       "size": 373,
+       "vsize": 373,
+       "locktime": 3122,
+       "vin": [
+         {
+           "txid": "98d5662e7c530a5413e2017595a6a67c6bdd5a397b6e6004732e6b1f942a8a2e",
+           "vout": 0,
+           "scriptSig": {
+             "asm": "304402202a6a06cb253a31b9379023a7a7d0f729c2238b4a0a7f4752b477bb3a768e350702204c02a9101a0f0f32401c7db08a64ccd7f8b157965a68d3159847765a683d9916[ALL] 03be2cecbc29bfc8d1c1e37a194d50e0eea68d6e3eae645c2f079977c25fc3f9ae",
+             "hex": "47304402202a6a06cb253a31b9379023a7a7d0f729c2238b4a0a7f4752b477bb3a768e350702204c02a9101a0f0f32401c7db08a64ccd7f8b157965a68d3159847765a683d9916012103be2cecbc29bfc8d1c1e37a194d50e0eea68d6e3eae645c2f079977c25fc3f9ae"
+           },
+           "sequence": 4294967294
+         },
+         {
+           "txid": "b612673bb45454e0de59fa08f5e71386b89208f3fcfcdf485f346d7513cf15f5",
+           "vout": 0,
+           "scriptSig": {
+             "asm": "3045022100901f9104018d35cad8bc7878aae87cc2a52d5c5913b03e417d0576e5159fc011022058252a72d8758ec82259e612c6e0122b146f5d21e1d73a241df0b69901e68d95[ALL] 022be11093dee0c52a62f1e24cf1a7a71f06db69c51e48dee5fb32d522b1b5130b",
+             "hex": "483045022100901f9104018d35cad8bc7878aae87cc2a52d5c5913b03e417d0576e5159fc011022058252a72d8758ec82259e612c6e0122b146f5d21e1d73a241df0b69901e68d950121022be11093dee0c52a62f1e24cf1a7a71f06db69c51e48dee5fb32d522b1b5130b"
+           },
+           "sequence": 4294967294
+         }
+       ],
+       "vout": [
+         {
+           "value": 1000.00000000,
+           "n": 0,
+           "scriptPubKey": {
+             "asm": "OP_DUP OP_HASH160 a09b7a0ea8e3f56bb71f1af38406a12ffc048fe9 OP_EQUALVERIFY OP_CHECKSIG",
+             "hex": "76a914a09b7a0ea8e3f56bb71f1af38406a12ffc048fe988ac",
+             "reqSigs": 1,
+             "type": "pubkeyhash",
+             "addresses": [
+               "1FeDNQk5FuNCxJK7un4NhW8hRjpSC99g5t"
+             ]
+           }
+         },
+         {
+           "value": 0.01039287,
+           "n": 1,
+           "scriptPubKey": {
+             "asm": "OP_DUP OP_HASH160 3fea90a3df29c99e43768738b4a88016907ee8f8 OP_EQUALVERIFY OP_CHECKSIG",
+             "hex": "76a9143fea90a3df29c99e43768738b4a88016907ee8f888ac",
+             "reqSigs": 1,
+             "type": "pubkeyhash",
+             "addresses": [
+               "16pxZwwcu7qsCYxoC7CdLoMc9qMMj9oFyA"
+             ]
+           }
+         }
+       ]
+     }
    *
    */
   public function decoderawtransaction($hexstring) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = "decoderawtransaction";
+    $args["params"] = ["$hexstring"];
 
     $res = $this->call($args);
     if ($res)
