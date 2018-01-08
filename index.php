@@ -357,7 +357,7 @@ if ($txids_length > 0) {
         //print_r("</td>");
         $html_str .= "<td>";
         //print_r("<td>");
-        $html_str .= $transactions_value[$i]["value"];
+        $html_str .= $transactions_value[$i];
         //print_r($transactions_value[$i]);
         $html_str .= "</td>";
         //print_r("</td>");
