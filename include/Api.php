@@ -1419,14 +1419,38 @@ class Api {
 
 
   /* 43
-   *
-   * Returns
+   * setban "subnet" "add|remove" (bantime) (absolute)
+   * 
+   * Attempts to add or remove an IP/Subnet from the banned list.
+   * 1. "subnet"       (string, required) The IP/Subnet (see getpeerinfo for
+   * nodes IP) with an optional netmask (default is /32 = single IP)
+   * 2. "command"      (string, required) 'add' to add an IP/Subnet to the
+   * list, 'remove' to remove an IP/Subnet from the list
+   * 3. "bantime"      (numeric, optional) time in seconds how long (or until
+   * when if [absolute] is set) the IP is banned (0 or empty means using the
+   * default time of 24h which can also be overwritten by the -bantime startup
+   * argument)
+   * 4. "absolute"     (boolean, optional) If set, the bantime must be an
+   * absolute timestamp in seconds since epoch (Jan 1 1970 GMT)
+   * 
+     Input:
+     {
+       "params": [ "subnet", "add|remove", (bantime), (absolute) ]
+     }
+
+     Output:
+     {
+     }
    *
    */
-  public function setban($subnet, $cmd, $bantime, $absolute) {
+  public function setban($subnet, $cmd = "add", $bantime = 86400, $absolute = 0) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = "setban";
+    if (!empty($absolute))
+      $args["params"] = ["$subnet", "$cmd", $absolute];
+    else
+      $args["params"] = ["$subnet", "$cmd", $bantime];
 
     $res = $this->call($args);
     if ($res)
