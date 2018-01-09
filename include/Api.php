@@ -1130,12 +1130,27 @@ class Api {
 
 
   /* 34
-   *
-   * Returns
+   * clearbanned
+   * 
+   * Clear all banned IPs.
+   * 
+     Input:
+     {
+     }
+
+     Output:
+     {
+     }
    *
    */
   public function clearbanned() {
+
     $args = $this->args;
+    $args["method"] = "clearbanned";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
