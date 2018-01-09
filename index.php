@@ -311,56 +311,39 @@ function prettynum($val, $index = "K", $precision = 4) {
 				</thead>
 				<tbody id="mem_pool_rows">
 
-<?php
+                <?php
+                $txids = $block->getrawmempool();
+                $txids_length = count($txids);
+                $html_str = "";
 
-$txids = $block->getrawmempool();
-$txids_length = count($txids);
+                if ($txids_length > 0) {
+                    $transactions = [];
+                    $transactions_value = [];
 
-/*
- * @TODO construct link url to get TXOUT details
- */
-$html_str = "";
+                    for ($i = $txids_length - 1; $i >= 0; $i--) {
+                        $transactions[$i] = $block->getmempoolentry($txids[$i]);
+                        $transactions_value[$i] = $block->gettransactionamount($txids[$i]);
+                    }
 
-//var_dump($txids);
-//print_r("<br />");
-//print_r("<br />");
-//var_dump($txids_length);
-//print_r("<br />");
-//print_r("<br />");
+                    for($i = $txids_length - 1; $i >= 0; $i--) {
+                        $html_str .= "<tr><td>" .
+                                 date("d.m.Y H:i:s", $transactions[$i]["time"]) .
+                                 "</td><td>" .
+                                 $transactions_value[$i] .
+                                 "</td><td>" .
+                                 $transactions[$i]["fee"] .
+                                 "</td><td>" .
+                                 $transactions[$i]["size"] .
+                                 "</td><td>" .
+                                 "<a href='http://" . $_SERVER['HTTP_HOST'] . "/index.php?txid=" . $transactions[$i]["wtxid"] . "'>" . $transactions[$i]["wtxid"] . "</a>" .
+                                 "</td></tr>";
+                    }
+                } else {
+                    $html_str = "<tr><td colspan=5>There are no unconfirmed transactions.</td></tr>";
+                }
 
-if ($txids_length > 0) {
-
-    $transactions = [];
-    $transactions_value = [];
-
-    for ($i = $txids_length - 1; $i >= 0; $i--) {
-        $transactions[$i] = $block->getmempoolentry($txids[$i]);
-        $transactions_value[$i] = $block->gettransactionamount($txids[$i]);
-    }
-
-    for($i = $txids_length - 1; $i >= 0; $i--) {
-
-        $html_str .= "<tr><td>" .
-                     date("d.m.Y H:i:s", $transactions[$i]["time"]) .
-                     "</td><td>" .
-                     $transactions_value[$i] .
-                     "</td><td>" .
-                     $transactions[$i]["fee"] .
-                     "</td><td>" .
-                     $transactions[$i]["size"] .
-                     "</td><td>" .
-                     "<a href='http://" . $_SERVER['HTTP_HOST'] . "/index.php?txid=" . $transactions[$i]["wtxid"] . "'>" . $transactions[$i]["wtxid"] . "</a>" .
-                     "</td></tr>";
-
-    }
-} else {
-    print_r("There are no unconfirmed transactions.");
-}
-
-print_r($html_str);
-
-?>
-
+                print_r($html_str);
+                ?>
 
 				</tbody>
 			</table>
@@ -401,46 +384,35 @@ print_r($html_str);
 			</thead>
 			<tbody id="blocks_rows">
 
-<?php
+            <?php
+            $blocks = [];
+            $blockchain_length = $block->getblockcount();
 
-$blocks = [];
-$blockchain_length = $block->getblockcount();
+            for ($i = $blockchain_length; $i > (($blockchain_length - 20) > 0 ? ($blockchain_length - 20) : 0); $i--) {
+                $blocks[$i] = $block->getblock($block->getblockhash($i));
+            }
+            if (count($blocks) > 0) {
+                for ($i = $blockchain_length; $i > (($blockchain_length - 20) > 0 ? ($blockchain_length - 20) : 0); $i--) {
+                    $html_str .= "<tr><td>" .
+                                 $blocks[$i]["height"]) .
+                                 "</td><td>" .
+                                 date("d.m.Y H:i:s", $blocks[$i]["time"]) .
+                                 "</td><td>") .
+                                 $blocks[$i]["size"] .
+                                 "</td><td>" .
+                                 "<a href='http://" . $_SERVER['HTTP_HOST'] . "/index.php?blockhash=" . $blocks[$i]["hash"] . "'>" . $blocks[$i]["hash"] . "</a>" .
+                                 "</td><td>" .
+                                 $blocks[$i]["difficulty"] .
+                                 "</td><td>" .
+                                 count($blocks[$i]["tx"]) .
+                                 "</td></tr>";
+                }
+            } else {
+                $html_str = "<tr><td colspan=6>There are no blocks yet.</td></tr>";
+            }
 
-for ($i = $blockchain_length; $i > (($blockchain_length - 20) > 0 ? ($blockchain_length - 20) : 0); $i--) {
-    $blocks[$i] = $block->getblock($block->getblockhash($i));
-}
-if (count($blocks) > 0) {
-    for ($i = $blockchain_length; $i > (($blockchain_length - 20) > 0 ? ($blockchain_length - 20) : 0); $i--) {
-        print_r("<tr>");
-        print_r("<td>");
-        print_r($blocks[$i]["height"]);
-        print_r("</td>");
-        print_r("<td>");
-        print_r(date("d.m.Y H:i:s", $blocks[$i]["time"]));
-        print_r("</td>");
-        print_r("<td>");
-        print_r($blocks[$i]["size"]);
-        print_r("</td>");
-        print_r("<td>");
-        print_r($blocks[$i]["hash"]);
-        print_r("</td>");
-        print_r("<td>");
-        print_r($blocks[$i]["difficulty"]);
-        print_r("</td>");
-        print_r("<td>");
-        print_r(count($blocks[$i]["tx"]));
-        print_r("</td>");
-        print_r("</tr>");
-    }
-} else {
-    print_r("There are no blocks yet.");
-}
-
-?>
-
-
-
-
+            print_r($html_str);
+            ?>
 
 			</tbody>
 		</table>
