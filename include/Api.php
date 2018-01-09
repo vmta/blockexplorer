@@ -1101,13 +1101,31 @@ class Api {
 
 
   /* 33
-   *
-   * Returns
+   * addnode "node" "add|remove|onetry"
+   * 
+   * Attempts to add or remove a node from the addnode list.
+   * Or try a connection to a node once.
+   * 
+     Input:
+     {
+       "params": [ "node", "add|remove|onetry" ]
+     }
+
+     Output:
+     {
+     }
    *
    */
-  public function addnode($node, $cmd) {
+  public function addnode($node, $cmd = "onetry") {
     // $cmd may be one of add|remove|onetry
+
     $args = $this->args;
+    $args["method"] = "addnode";
+    $args["params"] = [ "$node", "$cmd" ];
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
