@@ -1187,12 +1187,55 @@ class Api {
 
 
   /* 36
-   *
-   * Returns
+   * getaddednodeinfo "node"
+   * 
+   * Returns JSON object representing information on added node.
+   * Note: if "node" is undefined, information on all added nodes is
+   *       returned as an array.
+   * Note: if "node" is defined but such a node is not on the added
+   *       node list, an error is returned.
+   * Note: "node" shall exactly match added node address:port.
+   * 
+     Input:
+     {
+       "params": "node"
+     }
+
+     Output:
+     [
+       {
+         "addednode": "192.168.1.1:6333",
+         "connected": true,
+         "addresses": [
+           {
+             "address": "192.168.1.1:6333",
+             "connected": "outbound"
+           }
+         ]
+       },
+       {
+         "addednode": "192.168.1.2:6333",
+         "connected": true,
+         "addresses": [
+           {
+             "address": "192.168.1.2:6333",
+             "connected": "outbound"
+           }
+         ]
+       }
+     ]
    *
    */
-  public function getaddednodeinfo($node) {
+  public function getaddednodeinfo($node = "") {
+
     $args = $this->args;
+    $args["method"] = "getaddednodeinfo";
+    if (!empty($node))
+      $args["params"] = ["$node"];
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
