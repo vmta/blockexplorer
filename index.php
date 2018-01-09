@@ -336,52 +336,32 @@ if ($txids_length > 0) {
     for ($i = $txids_length - 1; $i >= 0; $i--) {
         $transactions[$i] = $block->getmempoolentry($txids[$i]);
 
-        $rawtx = $block->getrawtransaction($txids[$i], false);
-        $tx = $block->decoderawtransaction($rawtx)['vout'];
-        $amount = 0;
-        for ($j = 0; $j < count($tx); $j ++) {
-            $amount += $tx[$j]['value'];
-        }
-        $transactions_value[$i] = $amount;
+//        $rawtx = $block->getrawtransaction($txids[$i], false);
+//        $tx = $block->decoderawtransaction($rawtx)['vout'];
+//        $amount = 0;
+//        for ($j = 0; $j < count($tx); $j ++) {
+//            $amount += $tx[$j]['value'];
+//        }
+//        $transactions_value[$i] = $amount;
+
+        $transactions_value[$i] = $this->gettransactionamount($txids[$i]);
     }
 
     for($i = $txids_length - 1; $i >= 0; $i--) {
 
-        $html_str .= "<tr>";
-        //print_r("<tr>");
-        $html_str .= "<td>";
-        //print_r("<td>");
+        $html_str .= "<tr><td>";
         $html_str .= date("d.m.Y H:i:s", $transactions[$i]["time"]);
-        //print_r(date("d.m.Y H:i:s", $transactions[$i]["time"]));
-        $html_str .= "</td>";
-        //print_r("</td>");
-        $html_str .= "<td>";
-        //print_r("<td>");
+        $html_str .= "</td><td>";
         $html_str .= $transactions_value[$i];
-        //print_r($transactions_value[$i]);
-        $html_str .= "</td>";
-        //print_r("</td>");
-        $html_str .= "<td>";
-        //print_r("<td>");
+        $html_str .= "</td><td>";
         $html_str .= $transactions[$i]["fee"];
-        //print_r($transactions[$i]["fee"]);
-        $html_str .= "</td>";
-        //print_r("</td>");
-        $html_str .= "<td>";
-        //print_r("<td>");
+        $html_str .= "</td><td>";
         $html_str .= $transactions[$i]["size"];
-        //print_r($transactions[$i]["size"]);
-        $html_str .= "</td>";
-        //print_r("</td>");
-        $html_str .= "<td>";
-        //print_r("<td>");
-        $tx_id = $transactions[$i]["wtxid"];
-        $html_str .= "<a href=\"http://" . $_SERVER['HTTP_HOST'] . "/index.php?txid=" . $tx_id . "\">" . $tx_id . "</a>";
-        //print_r($transactions[$i]["wtxid"]);
-        $html_str .= "</td>";
-        //print_r("</td>");
-        $html_str .= "</tr>";
-        //print_r("</tr>");
+        $html_str .= "</td><td>";
+        //$tx_id = $transactions[$i]["wtxid"];
+        //$html_str .= "<a href=\"http://" . $_SERVER['HTTP_HOST'] . "/index.php?txid=" . $tx_id . "\">" . $tx_id . "</a>";
+        $html_str .= "<a href=\"http://" . $_SERVER['HTTP_HOST'] . "/index.php?txid=" . $transactions[$i]["wtxid"] . "\">" . $transactions[$i]["wtxid"] . "</a>";
+        $html_str .= "</td></tr>";
 
     }
 } else {
