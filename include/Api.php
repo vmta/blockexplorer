@@ -878,12 +878,30 @@ class Api {
 
 
   /* 26
-   *
-   * Returns
+   * generate nblocks ( maxtries )
+   * 
+   * Mine up to nblocks blocks immediately (before the RPC call returns) to an address in the wallet.
+   * 
+     Input:
+     {
+       "params": [ nblocks, maxtries ]
+     }
+
+     Output:
+     {
+       [ "blockhash" ]
+     }
    *
    */
   public function generate($nblocks = 1, $maxtries = 1000) {
+
     $args = $this->args;
+    $args["method"] = "generate";
+    $args["params"] = [$nblocks, $maxtries];
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
