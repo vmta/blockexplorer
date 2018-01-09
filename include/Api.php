@@ -939,12 +939,61 @@ class Api {
 
 
   /* 28
-   *
-   * Returns
-   *
+   * getblocktemplate
+   * 
+   * Returns JSON object.
+   * 
+     Input:
+     {
+     }
+
+     Output:
+     { 
+       "capabilities": [
+         "proposal"
+       ],
+       "version": 536870912,
+       "rules": [
+         "testdummy",
+         "csv",
+         "segwit"
+       ],
+       "vbavailable": {
+       },
+       "vbrequired": 0,
+       "previousblockhash": "000000000010d2abe821e7329fa78c8de7bc1ae21bd7a5dc4991fb90bc8c6025",
+       "transactions": [
+       ],
+       "coinbaseaux": {
+         "flags": ""
+       },
+       "coinbasevalue": 5000000000,
+       "longpollid": "000000000010d2abe821e7329fa78c8de7bc1ae21bd7a5dc4991fb90bc8c602523",
+       "target": "00000000004df8f5000000000000000000000000000000000000000000000000",
+       "mintime": 1515486583,
+       "mutable": [
+         "time",
+         "transactions",
+         "prevblock"
+       ],
+       "noncerange": "00000000ffffffff",
+       "sigoplimit": 80000,
+       "sizelimit": 4000000,
+       "weightlimit": 4000000,
+       "curtime": 1515489375,
+       "bits": "1b4df8f5",
+       "height": 3310
+     }
+   * 
    */
   public function getblocktemplate() {
+
     $args = $this->args;
+    $args["method"] = "getblocktemplate";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
