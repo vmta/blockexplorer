@@ -1069,12 +1069,29 @@ class Api {
 
 
   /* 32
-   *
-   * Returns
+   * submitblock "hexdata"  ( "dummy" )
+   * 
+   * Attempts to submit new block to network.
+   * 
+     Input:
+     {
+       "params": [ "hexdata", "dummy" ]
+     }
+
+     Output:
+     {
+     }
    *
    */
-  public function submitblock($hexdata) {
+  public function submitblock($hexdata, $dummy = "dummy") {
+
     $args = $this->args;
+    $args["method"] = "submitblock";
+    $args["params"] = [ "$hexdata", "$dummy" ];
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
