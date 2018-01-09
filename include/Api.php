@@ -906,12 +906,30 @@ class Api {
 
 
   /* 27
-   *
-   * Returns
+   * generatetoaddress nblocks address (maxtries)
+   * 
+   * Mine blocks immediately to a specified address (before the RPC call returns)
+   * 
+     Input:
+     {
+       "params": [ nblocks, address, maxtries ]
+     }
+
+     Output:
+     {
+       [ "blockhash" ]
+     }
    *
    */
   public function generatetoaddress($nblocks = 1, $address, $maxtries = 1000) {
+
     $args = $this->args;
+    $args["method"] = "generatetoaddress";
+    $args["params"] = [$nblocks, $address, $maxtries];
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
