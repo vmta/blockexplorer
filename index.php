@@ -394,7 +394,7 @@ function prettynum($val, $index = "K", $precision = 4) {
             if (count($blocks) > 0) {
                 for ($i = $blockchain_length; $i > (($blockchain_length - 20) > 0 ? ($blockchain_length - 20) : 0); $i--) {
                     $html_str .= "<tr><td>" .
-                                 $blocks[$i]["height"]) .
+                                 $blocks[$i]["height"] .
                                  "</td><td>" .
                                  date("d.m.Y H:i:s", $blocks[$i]["time"]) .
                                  "</td><td>") .
