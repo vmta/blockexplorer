@@ -998,12 +998,35 @@ class Api {
 
 
   /* 29
-   *
-   * Returns
+   * getmininginfo
+   * 
+   * Returns JSON object.
+   * 
+     Input:
+     {
+     }
+
+     Output:
+     {
+       "blocks": 3309,
+       "currentblockweight": 4000,
+       "currentblocktx": 0,
+       "difficulty": 840.4887588172614,
+       "networkhashps": 7936521523.330769,
+       "pooledtx": 0,
+       "chain": "main",
+       "warnings": ""
+     }
    *
    */
   public function getmininginfo() {
+
     $args = $this->args;
+    $args["method"] = "getmininginfo";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
