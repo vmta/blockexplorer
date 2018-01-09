@@ -397,7 +397,7 @@ function prettynum($val, $index = "K", $precision = 4) {
                                  $blocks[$i]["height"] .
                                  "</td><td>" .
                                  date("d.m.Y H:i:s", $blocks[$i]["time"]) .
-                                 "</td><td>") .
+                                 "</td><td>" .
                                  $blocks[$i]["size"] .
                                  "</td><td>" .
                                  "<a href='http://" . $_SERVER['HTTP_HOST'] . "/index.php?blockhash=" . $blocks[$i]["hash"] . "'>" . $blocks[$i]["hash"] . "</a>" .
