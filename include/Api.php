@@ -1155,12 +1155,34 @@ class Api {
 
 
   /* 35
-   *
-   * Returns
+   * disconnectnode "[address]" [nodeid]
+   * 
+   * Immediately disconnects from the specified peer node.
+   * Strictly one out of 'address' and 'nodeid' can be provided to identify the node.
+   * To disconnect by nodeid, either set 'address' to the empty string, or call using the named 'nodeid' argument only.
+   * 
+     Input:
+     {
+       "params": [ "address", nodeid ]
+     }
+
+     Output:
+     {
+     }
    *
    */
   public function disconnectnode($address, $nodeid) {
+    
     $args = $this->args;
+    $args["method"] = "disconnectnode";
+    if (!empty($nodeid))
+      $args["params"] = [ "", $nodeid ];
+    else
+      $args["params"] = [ "$address" ];
+    
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
