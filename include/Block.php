@@ -125,11 +125,15 @@ class Block extends Api {
    */
   public function gettransactionamount($txid) {
 
-    $rawtx = $this->getrawtransaction($txid);
-    $tx = $this->decoderawtransaction($rawtx);
+    $rawtx = $this->getrawtransaction($txid, false);
+    $tx = $this->decoderawtransaction($rawtx)['vout'];
 
-    if ($res)
-      return $res['transactions'];
+    $amount = 0;
+    for ($i = 0; $i < count($tx); $i++) {
+      $amount += $tx[$i]['value'];
+    }
+
+    return $amount;
   }
 
 
