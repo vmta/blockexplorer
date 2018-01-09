@@ -1197,12 +1197,29 @@ class Api {
 
 
   /* 37
-   *
-   * Returns
+   * getconnectioncount
+   * 
+   * Returns stripped JSON object, an int representing current number
+   * of established connections.
+   * 
+     Input:
+     {
+     }
+
+     Output:
+     {
+       7
+     }
    *
    */
   public function getconnectioncount() {
+
     $args = $this->args;
+    $args["method"] = "getconnectioncount";
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
