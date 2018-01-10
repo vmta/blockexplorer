@@ -2213,14 +2213,30 @@ class Api {
 
 
   /* 79
-   *
-   * Returns
+   * importmulti "requests" ( "options" )
+   * 
+   * RetuImport addresses/scripts (with private or public keys, redeem script
+   * (P2SH)), rescanning all addresses in one-shot-only (rescan can be
+   * disabled via options). Requires a new wallet backup.
+   * 
+     Input:
+     {
+       "params": ["requests", ("options")]
+     }
+
+     Output:
+     {
+     }
    *
    */
-  public function importmultu($requests, $options) {
+  public function importmulti($requests, $options = []) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = "importmulti";
+    if(!empty($options))
+      $args["params"] = [$requests, $options];
+    else
+      $args["params"] = [$requests];
 
     $res = $this->call($args);
     if ($res)
