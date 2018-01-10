@@ -387,6 +387,7 @@ function prettynum($val, $index = "K", $precision = 4) {
             <?php
             $blocks = [];
             $blockchain_length = $block->getblockcount();
+            $html_str = "";
 
             for ($i = $blockchain_length; $i > (($blockchain_length - 20) > 0 ? ($blockchain_length - 20) : 0); $i--) {
                 $blocks[$i] = $block->getblock($block->getblockhash($i));
