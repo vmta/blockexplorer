@@ -2354,14 +2354,37 @@ class Api {
 
 
   /* 86
-   *
-   * Returns
+   * listaddressgroupings
+   * 
+   * Returns JSON object as an array of available addresses and their balances.
+   * 
+     Input:
+     {
+     }
+
+     Output:
+     [
+       [
+         [
+           "1n6LcwLcAEBPYLDBwPY6YS8kgeA4pQ2Ud",
+           0.49970713
+         ],
+         [
+           "12xUHwcZigWUWQ4uoGc2TkodrERcbrpJWF",
+           0.49990028
+         ],
+         [
+           "138uZ8MtMhnNspmq1g5sz2QqJ62hXXLaUN",
+           0.00000000
+         ]
+       ]
+     ]
    *
    */
   public function listaddressgroupings() {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = "listaddressgroupings";
 
     $res = $this->call($args);
     if ($res)
