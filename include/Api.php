@@ -2325,14 +2325,27 @@ class Api {
 
 
   /* 85
-   *
-   * Returns
+   * listaccounts (minconf) (include_watchonly)
+   * 
+   * Returns JSON object as an array of all wallet accounts with respectful balances.
+   * 
+     Input:
+     {
+       "params": [minconf, include_watchonly]
+     }
+
+     Output:
+     {
+       "Account1": 129.34890554,
+       "Account2": 11.65889236
+     }
    *
    */
-  public function listaccounts($minconf = 0, $include_watchonly) {
+  public function listaccounts($minconf = 0, $include_watchonly = true) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = "listaccounts";
+    $args["params"] = [$minconf, $include_watchonly];
 
     $res = $this->call($args);
     if ($res)
