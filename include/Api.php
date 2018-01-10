@@ -1459,15 +1459,25 @@ class Api {
 
 
   /* 44
-   *
-   * Returns
+   * setnetworkactive true|false
+   * 
+   * Disable/enable all p2p network activity.
+   * 
+     Input:
+     {
+       "params": [true|false]
+     }
+
+     Output:
+     {
+     }
    *
    */
-  public function setnetworkactive($flag) {
+  public function setnetworkactive($flag = true) {
 
-    // $flag may be one of true|false
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = "setnetworkactive";
+    $args["params"] = [$flag];
 
     $res = $this->call($args);
     if ($res)
