@@ -2393,14 +2393,29 @@ class Api {
 
 
   /* 87
-   *
-   * Returns
+   * listlockunspent
+   * 
+   * Returns list of temporarily unspendable outputs.
+   * See the lockunspent call to lock and unlock transactions for spending.
+   * 
+     Input:
+     {
+     }
+
+     Output:
+     [
+       {
+         "txid" : "transactionid",   (string) The transaction id locked
+         "vout" : n                  (numeric) The vout value
+       }
+       ,...
+     ]
    *
    */
   public function listlockunspent() {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = "listlockunspent";
 
     $res = $this->call($args);
     if ($res)
