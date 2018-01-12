@@ -3,16 +3,16 @@
 
 /*
  * Api class for Umkoin (SHA256) crypto currency
- * 
+ *
  * Author:  vmta
  * Date:    5 Jan 2018
- * 
+ *
  * Version_Major: 0
  * Version_Minor: 0
  * Version_Build: 1
- * 
+ *
  * Changelog:
- * 
+ *
  */
 
 

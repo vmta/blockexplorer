@@ -51,6 +51,17 @@ class Block extends Api {
 
 
   /*
+   * Returns height of the block by its hash.
+   */
+  public function getheight($hash) {
+
+    $res = $this->getblock($hash);
+    if($res)
+      return $res['height'];
+  }
+
+
+  /*
    * Returns unconfirmed transactions count in mempool
    * based on the original getmempoolinfo set of data.
    */
@@ -67,7 +78,7 @@ class Block extends Api {
    * coinbase transaction amount.
    */
   public function getreward($height = 0) {
-    
+
     if ( empty($height) ) $height = $this->getblockcount();
 
     $hash = $this->getblockhash($height);
@@ -82,7 +93,7 @@ class Block extends Api {
     for ($i = 0; $i <= $chain_coinbase_tx_vouts; $i++) {
       $blockreward += $transactiondata['vout'][$i]['value'];
     }
-    
+
     return $blockreward;
   }
 
@@ -93,14 +104,14 @@ class Block extends Api {
    * block timestamp.
    */
   public function getsolvetime($height = 0) {
-    
+
     if ( empty($height) ) $height = $this->getblockcount();
 
     $current_block = $height;
     $current_block_time = $this->getblock($this->getblockhash($current_block))['time'];
     $previous_block = ((($current_block - 1) > -1) ? ($current_block - 1) : 0);
     $previous_block_time = $this->getblock($this->getblockhash($previous_block))['time'];
-    
+
     return $current_block_time - $previous_block_time;
   }
 
