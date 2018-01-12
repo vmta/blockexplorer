@@ -82,7 +82,7 @@ class Api {
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_URL, $this->server);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, 'content-type: text/plain;');
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-type: text/plain']);
     curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
     curl_setopt($ch, CURLOPT_USERPWD, $this->auth);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
