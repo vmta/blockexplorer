@@ -61,14 +61,25 @@ class Block extends Api {
   }
 
 
+ /*
+  * Returns size of the block by its height.
+  */
+  public function getblocksize($hash) {
+
+    $res = $this->getblock($hash);
+    if($res)
+      return $res['size'];
+  }
+
+
   /*
-   * Returns timestamp of the block by its hash.
+   * Returns time of the block by its hash.
    */
-  public function getblocktimestamp($hash) {
+  public function getblocktime($hash) {
 
     $res = $this->getblock($hash);
     if ($res)
-      return $res['timestamp'];
+      return $res['time'];
   }
 
 
