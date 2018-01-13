@@ -56,8 +56,19 @@ class Block extends Api {
   public function getblockheight($hash) {
 
     $res = $this->getblock($hash);
-    if($res)
-      return $res['height'];
+    if ($res)
+      return $res["height"];
+  }
+
+
+  /*
+   * Returns difficulty of the block by its hash.
+   */
+  public function getblockdifficulty($hash) {
+
+    $res = $this->getblock($hash);
+    if ($res)
+      return $res["difficulty"];
   }
 
 
@@ -68,7 +79,7 @@ class Block extends Api {
 
     $res = $this->getblock($hash);
     if($res)
-      return $res['size'];
+      return $res["size"];
   }
 
 
@@ -79,7 +90,7 @@ class Block extends Api {
 
     $res = $this->getblock($hash);
     if ($res)
-      return $res['time'];
+      return $res["time"];
   }
 
 
@@ -91,7 +102,7 @@ class Block extends Api {
 
     $res = $this->getmempoolinfo();
     if ($res)
-      return $res['size'];
+      return $res["size"];
   }
 
 
@@ -99,11 +110,15 @@ class Block extends Api {
    * Returns miner reward for the block based on
    * coinbase transaction amount.
    */
-  public function getreward($height = 0) {
+  public function getreward($height = 0, $flag = 'height') {
 
-    if ( empty($height) ) $height = $this->getblockcount();
+    if ( $flag == 'height') {
+      if( empty($height) ) $height = $this->getblockcount();
+      $hash = $this->getblockhash($height);
+    } else {
+      $hash = $height;
+    }
 
-    $hash = $this->getblockhash($height);
     $blockdata = $this->getblock($hash);
 
     $chain_coinbase_tx = $blockdata['tx'][0];
