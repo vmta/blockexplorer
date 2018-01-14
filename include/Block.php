@@ -51,6 +51,18 @@ class Block extends Api {
 
 
   /*
+   * Returns basereward for the given block by its height or hash.
+   */
+  public function getbasereward($height = 0, $flag = 'height') {
+    if($flag == 'hash') {
+      $height = $this->getblockheight($height);
+    }
+
+    return (5000000000 >> round($height / 210000, 0)) / 100000000;
+  }
+
+
+  /*
    * Returns height of the block by its hash.
    */
   public function getblockheight($hash) {
@@ -121,6 +133,28 @@ class Block extends Api {
 
     if ($tx_size)
       return $tx_size;
+  }
+
+
+  /*
+   * Return transactions amount in a block by block hash.
+   */
+  public function getblocktransactionsamount($hash) {
+
+    $res = $this->getblock($hash);
+
+    $tx_amount = 0;
+    for ($i = 0; $i < count($res["tx"]); $i++) {
+      $tx_raw = $this->getrawtransaction($res["tx"][$i]);
+      $tx_decoded = $this->decoderawtransaction($tx_raw);
+
+      for ($j = 0; $j < count($tx_decoded["vout"]); $j++) {
+        $tx_amount += $tx_decoded[$j]["value"];
+      }
+    }
+
+    if ($tx_amount)
+      return $tx_amount;
   }
 
 
