@@ -95,6 +95,36 @@ class Block extends Api {
 
 
   /*
+   * Return transactions count in a block by block hash.
+   */
+  public function getblocktransactionscount($hash) {
+
+    $res = $this->getblock($hash);
+    if ($res)
+      return count($res["tx"]);
+  }
+
+
+  /*
+   * Return transactions size in a block by block hash.
+   */
+  public function getblocktransactionssize($hash) {
+
+    $res = $this->getblock($hash);
+
+    $tx_size = 0;
+    for ($i = 0; $i < count($res["tx"]); $i++) {
+      $tx_raw = $this->getrawtransaction($res["tx"][$i]);
+      $tx_decoded = $this->decoderawtransaction($tx_raw);
+      $tx_size += $tx_decoded["size"];
+    }
+
+    if ($tx_size)
+      return $tx_size;
+  }
+
+
+  /*
    * Returns unconfirmed transactions count in mempool
    * based on the original getmempoolinfo set of data.
    */
@@ -197,6 +227,13 @@ class Block extends Api {
       return $res['transactions'];
   }
 
+
+  /**********************************/
+  /* Transactions-related functions */
+  /**********************************/
+
+
+  public function gettransactionsize($txid) {}
 
 }
 
