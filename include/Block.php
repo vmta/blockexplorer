@@ -84,6 +84,28 @@ class Block extends Api {
   }
 
 
+  /*
+   * Returns cumulative fee amount for the given block.
+   */
+  public function getblockfees($hash, $flag = 'hash') {
+
+    if ($flag != 'hash') {
+      $hash = $this->getblockhash($hash);
+    }
+
+    $fees = 0;
+    $txids = $this->getblock($hash)["tx"];
+
+    for ($i = 0; $i < count($txids); $i++) {
+      $txid = $this->gettransaction($txids[$i]);
+      if (isset($txid["fee"]))
+        $fees += $txid["fee"];
+    }
+
+    return $fees;
+  }
+
+
  /*
   * Returns size of the block by its height.
   */
