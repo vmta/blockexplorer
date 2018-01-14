@@ -2202,15 +2202,53 @@ class Api {
 
 
   /* 75
+   * gettransaction "txid" ( include_watchonly )
    *
-   * Returns
+   * Get detailed information about in-wallet transaction <txid>
+   *
+     Input:
+     {
+       "params": ["txid", (include_watchonly)]
+     }
+
+     Output:
+     {
+       "amount" : x.xxx,        (numeric) The transaction amount in UMK
+       "fee": x.xxx,            (numeric) The amount of the fee in UMK. This is negative and only available for the
+                                'send' category of transactions.
+       "confirmations" : n,     (numeric) The number of confirmations
+       "blockhash" : "hash",  (string) The block hash
+       "blockindex" : xx,       (numeric) The index of the transaction in the block that includes it
+       "blocktime" : ttt,       (numeric) The time in seconds since epoch (1 Jan 1970 GMT)
+       "txid" : "transactionid",   (string) The transaction id.
+       "time" : ttt,            (numeric) The transaction time in seconds since epoch (1 Jan 1970 GMT)
+       "timereceived" : ttt,    (numeric) The time received in seconds since epoch (1 Jan 1970 GMT)
+       "bip125-replaceable": "yes|no|unknown",  (string) Whether this transaction could be replaced due to BIP125 (replace-by-fee);
+                                                   may be unknown for unconfirmed transactions not in the mempool
+       "details" : [
+         {
+           "account" : "accountname",      (string) DEPRECATED. The account name involved in the transaction, can be "" for the default account.
+           "address" : "address",          (string) The umkoin address involved in the transaction
+           "category" : "send|receive",    (string) The category, either 'send' or 'receive'
+           "amount" : x.xxx,                 (numeric) The amount in UMK
+           "label" : "label",              (string) A comment for the address/transaction, if any
+           "vout" : n,                       (numeric) the vout value
+           "fee": x.xxx,                     (numeric) The amount of the fee in UMK. This is negative and only available for the
+                                             'send' category of transactions.
+           "abandoned": xxx                  (bool) 'true' if the transaction has been abandoned (inputs are respendable). Only available for the
+                                             'send' category of transactions.
+         }
+         ,...
+       ],
+       "hex" : "data"         (string) Raw data for transaction
+     }
    *
    */
-  public function gettransaction($txid, $include_watchonly) {
+  public function gettransaction($txid, $include_watchonly = false) {
 
-    // $include_watchonly may be one of true|false
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = "gettransaction";
+    $args["params"] = ["$txid", $include_watchonly];
 
     $res = $this->call($args);
     if ($res)
