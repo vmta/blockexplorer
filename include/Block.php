@@ -63,13 +63,30 @@ class Block extends Api {
 
 
   /*
-   * Returns height of the block by its hash.
+   * Return cumulative value amount for the given block.
    */
-  public function getblockheight($hash) {
+  public function getblockamount($hash, $flag = 'hash', $inout = 'out') {
+
+    if ($flag != 'hash') {
+      $hash = $this->getblockhash($hash);
+    }
 
     $res = $this->getblock($hash);
-    if ($res)
-      return $res["height"];
+
+    $amount = 0;
+    for ($i = 0; $i < count($res["tx"]); $i++) {
+      $tx_raw = $this->getrawtransaction($res["tx"][$i]);
+      $tx_decoded = $this->decoderawtransaction($tx_raw);
+      $varr = $tx_decoded["v$inout"];
+      for ($j = 0; $j < count($varr); $j++) {
+        $amount += $varr[$j]["value"];
+      }
+//var_dump($tx_decoded["v$inout"]);
+
+//      $amount += $tx_decoded["size"];
+    }
+
+    return $amount;
   }
 
 
@@ -103,6 +120,17 @@ class Block extends Api {
     }
 
     return $fees;
+  }
+
+
+  /*
+   * Returns height of the block by its hash.
+   */
+  public function getblockheight($hash) {
+
+    $res = $this->getblock($hash);
+    if ($res)
+      return $res["height"];
   }
 
 
