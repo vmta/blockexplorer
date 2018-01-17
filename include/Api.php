@@ -418,7 +418,7 @@ class Api {
 
   /* 9
    * getdifficulty
-   * 
+   *
    * Returns stripped JSON object, a float indicating current difficulty.
    *
      Input:
@@ -444,9 +444,9 @@ class Api {
 
   /* 10
    * getmempoolancestors "txid"
-   * 
+   *
    * Returns JSON object, array of ancestor transaction hashes.
-   * 
+   *
      Input:
      {
        "params": "77afbfb7f3e0c017cc879d9aed5f5e77fe7d42f2ec360b251bbf4b3bf5a9e840"
@@ -472,9 +472,9 @@ class Api {
 
   /* 11
    * getmempooldescendants "txid"
-   * 
+   *
    * Returns JSON object, array of descending transaction hashes.
-   * 
+   *
      Input:
      {
        "param": "77afbfb7f3e0c017cc879d9aed5f5e77fe7d42f2ec360b251bbf4b3bf5a9e840"
@@ -501,9 +501,9 @@ class Api {
 
   /* 12
    * getmempoolentry "txid"
-   * 
+   *
    * Returns JSON object.
-   * 
+   *
      Input:
      {
        "params": "1ea520afe55fb37f35caf82f5be0f664c87d1b14ab21cb386b85bcf9d4880292"
@@ -546,7 +546,7 @@ class Api {
    * getmempoolinfo
    *
    * Returns JSON object containing info on mempool state
-   * 
+   *
      Input:
      {
      }
@@ -575,10 +575,10 @@ class Api {
 
   /* 14
    * getrawmempool
-   * 
+   *
    * Returns JSON object, an array of transactions
    * in a mempool.
-   * 
+   *
      Input:
      {
      }
@@ -589,7 +589,7 @@ class Api {
        "4d5a2418c1f39b154eb9a77d740309f274441846648d882d6c6b7152888b0871",
        "4f4b6da3dddb26911aeb2c1333fd5b8d09d862ce1eb82c5e6cc820d983b1041e"
      ]
-   * 
+   *
    */
   public function getrawmempool() {
 
@@ -606,7 +606,7 @@ class Api {
    * gettxout "txid" vout include_mempool
    *
    * Returns JSON object.
-   * 
+   *
      Input:
      {
        "params": ["txid", vout, include_mempool]
@@ -644,9 +644,9 @@ class Api {
 
   /* 16
    * gettxoutproof "txid" ("blockhash")
-   * 
+   *
    * Returns a hex-encoded proof that "txid" was included in a block.
-   * 
+   *
      Input:
      {
        "params": ["txid", ("blockhash")]
@@ -666,7 +666,7 @@ class Api {
 
     if (!empty($hash))
       $args["params"][] = "$hash";
-    
+
     $res = $this->call($args);
     if ($res)
       return $res['result'];
@@ -677,7 +677,7 @@ class Api {
    * gettxoutsetinfo
    *
    * Returns JSON object.
-   * 
+   *
      Input:
      {
      }
@@ -730,7 +730,7 @@ class Api {
      {
 
      }
-   * 
+   *
    */
   public function pruneblockchain($height = 0) {
 
@@ -746,9 +746,9 @@ class Api {
 
   /* 20
    * verifychain
-   * 
+   *
    * Returns boolean value indicating whether chain is fine.
-   * 
+   *
      Input:
      {
      }
@@ -787,9 +787,9 @@ class Api {
 
   /* 22
    * getmemoryinfo
-   * 
+   *
    * Returns JSON object indicating memory information.
-   * 
+   *
      Input:
      {
      }
@@ -848,13 +848,13 @@ class Api {
 
   /* 25
    * uptime
-   * 
+   *
    * Returns stripped JSON object, an int in seconds since daemon last start.
-   * 
+   *
      Input:
      {
      }
-     
+
      Output:
      {
        131427
@@ -879,9 +879,9 @@ class Api {
 
   /* 26
    * generate nblocks ( maxtries )
-   * 
+   *
    * Mine up to nblocks blocks immediately (before the RPC call returns) to an address in the wallet.
-   * 
+   *
      Input:
      {
        "params": [ nblocks, maxtries ]
@@ -907,9 +907,9 @@ class Api {
 
   /* 27
    * generatetoaddress nblocks address (maxtries)
-   * 
+   *
    * Mine blocks immediately to a specified address (before the RPC call returns)
-   * 
+   *
      Input:
      {
        "params": [ nblocks, address, maxtries ]
@@ -940,15 +940,15 @@ class Api {
 
   /* 28
    * getblocktemplate
-   * 
+   *
    * Returns JSON object.
-   * 
+   *
      Input:
      {
      }
 
      Output:
-     { 
+     {
        "capabilities": [
          "proposal"
        ],
@@ -984,7 +984,7 @@ class Api {
        "bits": "1b4df8f5",
        "height": 3310
      }
-   * 
+   *
    */
   public function getblocktemplate() {
 
@@ -999,9 +999,9 @@ class Api {
 
   /* 29
    * getmininginfo
-   * 
+   *
    * Returns JSON object.
-   * 
+   *
      Input:
      {
      }
@@ -1032,7 +1032,7 @@ class Api {
 
   /* 30
    * getnetworkhashps height
-   * 
+   *
    * Returns stripped JSON object, a float indicating current hashing power.
    *
      Input:
@@ -1070,9 +1070,9 @@ class Api {
 
   /* 32
    * submitblock "hexdata"  ( "dummy" )
-   * 
+   *
    * Attempts to submit new block to network.
-   * 
+   *
      Input:
      {
        "params": [ "hexdata", "dummy" ]
@@ -1102,10 +1102,10 @@ class Api {
 
   /* 33
    * addnode "node" "add|remove|onetry"
-   * 
+   *
    * Attempts to add or remove a node from the addnode list.
    * Or try a connection to a node once.
-   * 
+   *
      Input:
      {
        "params": [ "node", "add|remove|onetry" ]
@@ -1131,9 +1131,9 @@ class Api {
 
   /* 34
    * clearbanned
-   * 
+   *
    * Clear all banned IPs.
-   * 
+   *
      Input:
      {
      }
@@ -1156,11 +1156,11 @@ class Api {
 
   /* 35
    * disconnectnode "[address]" [nodeid]
-   * 
+   *
    * Immediately disconnects from the specified peer node.
    * Strictly one out of 'address' and 'nodeid' can be provided to identify the node.
    * To disconnect by nodeid, either set 'address' to the empty string, or call using the named 'nodeid' argument only.
-   * 
+   *
      Input:
      {
        "params": [ "address", nodeid ]
@@ -1172,14 +1172,14 @@ class Api {
    *
    */
   public function disconnectnode($address, $nodeid) {
-    
+
     $args = $this->args;
     $args["method"] = "disconnectnode";
     if (!empty($nodeid))
       $args["params"] = [ "", $nodeid ];
     else
       $args["params"] = [ "$address" ];
-    
+
     $res = $this->call($args);
     if ($res)
       return $res['result'];
@@ -1188,14 +1188,14 @@ class Api {
 
   /* 36
    * getaddednodeinfo "node"
-   * 
+   *
    * Returns JSON object representing information on added node.
    * Note: if "node" is undefined, information on all added nodes is
    *       returned as an array.
    * Note: if "node" is defined but such a node is not on the added
    *       node list, an error is returned.
    * Note: "node" shall exactly match added node address:port.
-   * 
+   *
      Input:
      {
        "params": "node"
@@ -1241,10 +1241,10 @@ class Api {
 
   /* 37
    * getconnectioncount
-   * 
+   *
    * Returns stripped JSON object, an int representing current number
    * of established connections.
-   * 
+   *
      Input:
      {
      }
@@ -1268,9 +1268,9 @@ class Api {
 
   /* 38
    * getnettotals
-   * 
+   *
    * Returns JSON object with various historical network data.
-   * 
+   *
      Input:
      {
      }
@@ -1304,9 +1304,9 @@ class Api {
 
   /* 39
    * getnetworkinfo
-   * 
+   *
    * Returns JSON object representing current network status.
-   * 
+   *
      Input:
      {
      }
@@ -1429,9 +1429,9 @@ class Api {
 
   /* 41
    * listbanned
-   * 
+   *
    * Returns stripped JSON object, an array of banned hosts.
-   * 
+   *
      Input:
      {
      }
@@ -1454,12 +1454,12 @@ class Api {
 
   /* 42
    * ping
-   * 
+   *
    * Requests that a ping be sent to all other nodes, to measure ping time.
    * Ping command is handled in queue with all other commands, so it
    * measures processing backlog, not just network ping. Results provided
    * in getpeerinfo, pingtime and pingwait fields are decimal seconds.
-   * 
+   *
    */
   public function ping() {
 
@@ -1474,7 +1474,7 @@ class Api {
 
   /* 43
    * setban "subnet" "add|remove" (bantime) (absolute)
-   * 
+   *
    * Attempts to add or remove an IP/Subnet from the banned list.
    * 1. "subnet"       (string, required) The IP/Subnet (see getpeerinfo for
    * nodes IP) with an optional netmask (default is /32 = single IP)
@@ -1486,7 +1486,7 @@ class Api {
    * argument)
    * 4. "absolute"     (boolean, optional) If set, the bantime must be an
    * absolute timestamp in seconds since epoch (Jan 1 1970 GMT)
-   * 
+   *
      Input:
      {
        "params": [ "subnet", "add|remove", (bantime), (absolute) ]
@@ -1514,9 +1514,9 @@ class Api {
 
   /* 44
    * setnetworkactive true|false
-   * 
+   *
    * Disable/enable all p2p network activity.
-   * 
+   *
      Input:
      {
        "params": [true|false]
@@ -1561,8 +1561,37 @@ class Api {
 
 
   /* 46
+   * createrawtransaction [{"txid":"id","vout":n},...] {"address":amount,"data":"hex",...} ( locktime ) ( replaceable )
    *
-   * Returns
+   * Create a transaction spending the given inputs and creating new outputs.
+   * Outputs can be addresses or data.
+   * Returns hex-encoded raw transaction.
+   * Note that the transaction's inputs are not signed, and
+   * it is not stored in the wallet or transmitted to the network.
+   *
+     Input:
+     1. "inputs"                (array, required) A json array of json objects
+          [
+            {
+              "txid":"id",    (string, required) The transaction id
+              "vout":n,         (numeric, required) The output number
+              "sequence":n      (numeric, optional) The sequence number
+            }
+            ,...
+          ]
+     2. "outputs"               (object, required) a json object with outputs
+         {
+           "address": x.xxx,    (numeric or string, required) The key is the umkoin address, the numeric value (can be string) is the UMK amount
+           "data": "hex"      (string, required) The key is "data", the value is hex encoded data
+           ,...
+         }
+     3. locktime                  (numeric, optional, default=0) Raw locktime. Non-0 value also locktime-activates inputs
+     4. replaceable               (boolean, optional, default=false) Marks this transaction as BIP125 replaceable.
+                                  Allows this transaction to be replaced by a transaction with higher fees. If provided, it is an error if explicit sequence numbers are incompatible.
+
+     Output:
+     "transaction"              (string) hex string of the transaction
+   *
    *
    */
   public function createrawtransaction() {
@@ -1572,15 +1601,17 @@ class Api {
 
     $res = $this->call($args);
     if ($res)
-      return $res['result'];
+      // @TODO
+      //return $res['result'];
+      return false;
   }
 
 
   /* 47
    * decoderawtransaction "hexstring" ( iswitness )
-   * 
+   *
    * Returns JSON object representing the serialized, hex-encoded transaction.
-   * 
+   *
      Input:
      {
        "params": "hexstring"
