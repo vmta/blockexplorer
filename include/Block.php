@@ -1,5 +1,23 @@
 <?php
 
+
+
+/*
+ * Block class for Umkoin (SHA256) crypto currency
+ *
+ * Author: vmta
+ * Date:   14 Jan 2018
+ *
+ * Version_Major: 0
+ * Version_Minor: 0
+ * Version_Build: 1
+ *
+ * Changelog:
+ *
+ */
+
+
+
 class Block extends Api {
 
   public function __construct($server, $auth) {
@@ -164,6 +182,29 @@ class Block extends Api {
     $res = $this->getblock($hash);
     if ($res)
       return count($res["tx"]);
+  }
+
+
+  /*
+   * Return html representation of transactions in a given block.
+   */
+  public function getblocktransactionshtml($hash) {
+
+    $res = $this->getblock($hash);
+
+    $tx_hash = "";
+    $tx_fee = 0;
+    $tx_amount = 0;
+    $tx_size = 0;
+
+    for ($i = 0; $i < count($res["tx"]); $i++) {
+      $tx_raw = $this->getrawtransaction($res["tx"][$i]);
+      $tx_decoded = $this->decoderawtransaction($tx_raw);
+//@TODO
+
+      
+    }
+
   }
 
 
