@@ -66,33 +66,42 @@ $p = new Page($block);
 
 <?php
 
-/* Display Navigation bar */
-print_r($p->get_navbar());
+
+/* HTML Content Holder */
+$html_content = "";
 
 
-/* Construct html based on page request */
-//$html_content = "";
+/* Add Navigation bar to HTML Content Holder */
+$html_content .= $p->get_navbar();
+
+
+/* Add Page Content based on Request to HTML Content Holder */
 if (isset($_GET['blockhash'])) {
-//  $html_content .= $p->get_content('blockhash', $_GET['blockhash'], $block);
-  print_r($p->get_content('blockhash', $_GET['blockhash'], $block));
+
+  $html_content .= $p->get_content('blockhash', $_GET['blockhash']);
+
 } elseif (isset($_GET['txid'])) {
-//  $html_content .= $p->get_content('txid', $_GET['txid'], $block);
-  print_r($p->get_content('txid', $_GET['txid'], $block));
+
+  $html_content .= $p->get_content('txid', $_GET['txid']);
+
 } elseif (isset($_GET['search'])) {
-//  $html_content .= $p->get_content('search', $_GET['search'], $block);
-  print_r($p->get_content('search', $_GET['search'], $block));
+
+  $html_content .= $p->get_content('search', $_GET['search']);
+
 } else {
-//  $html_content .= $p->get_content('default', '', $block);
-  print_r($p->get_content('default', '', $block));
+
+  $html_content .= $p->get_content('default', '');
+
 }
 
 
-/* Display Main content */
-//print_r($html_content);
+/* Add Footer to HTML Content Holder */
+$html_content .= $p->get_footer();
 
 
-/* Display footer */
-print_r($p->get_footer());
+/* Display HTML Content */
+print_r($html_content);
+
 
 ?>
 
