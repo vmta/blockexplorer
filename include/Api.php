@@ -6,12 +6,20 @@
  *
  * Author:  vmta
  * Date:    5 Jan 2018
+ * Update:  18 Jan 2018 / v0.0.2
  *
  * Version_Major: 0
  * Version_Minor: 0
- * Version_Build: 1
+ * Version_Build: 2
  *
  * Changelog:
+ *
+ * v0.0.2
+ * Introduce $debug variable to turn on/off debugging
+ * Implement JSON call exception interception
+ *
+ * v0.0.1
+ * Initial code
  *
  */
 
@@ -46,6 +54,14 @@ class Api {
    *
    */
   private $args;
+
+
+  /*
+   * $debug variable of type boolean sets whether to
+   * generate debug info on calls or not
+   *
+   */
+  private $debug = false;
 
 
   /*
@@ -87,18 +103,53 @@ class Api {
     curl_setopt($ch, CURLOPT_USERPWD, $this->auth);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
-    $res = curl_exec($ch);
-    if ($res === false) $this->throw(new Exception('Could not get reply: ' . curl_error($ch)));
+//    $res = curl_exec($ch);
+//    if ($res === false && $this->debug) $this->throw(new Exception('Could not get reply: ' . curl_error($ch)));
 
-    $obj = json_decode($res, TRUE);
-    if (!isset($obj['result'])) {
-      print_r("API call to '" . $req['method'] . "' returned ");
-      if (isset($obj['error'])) {
-        print_r("Error(" . $obj['error']['code'] . "): " . $obj['error']['message'] . PHP_EOL);
-      } else {
-        print_r("Unknown Error: " . $obj . PHP_EOL);
+    $res = null;
+    try {
+
+      $res = curl_exec($ch);
+      if ($res === FALSE)
+        throw new Exception("Could not get reply: " . curl_error($ch));
+
+    } catch (Exception $e) {
+
+      if ($this->debug)
+        print_r($e->getMessage());
+
+    }
+
+//    $obj = json_decode($res, TRUE);
+//    if (!isset($obj['result']) && $this->debug) {
+//      print_r("API call to '" . $req['method'] . "' returned ");
+//      if (isset($obj['error'])) {
+//        print_r("Error(" . $obj['error']['code'] . "): " . $obj['error']['message'] . PHP_EOL);
+//      } else {
+//        print_r("Unknown Error: " . $obj . PHP_EOL);
+//      }
+//      return false;
+//    }
+
+    $obj = null;
+    try {
+
+      $obj = json_decode($res, TRUE);
+      if (!isset($obj["result"])) {
+
+        if (isset($obj["error"])) {
+          throw new Exception("Error(" . $obj["error"]["code"] . "): " . $obj["error"]["message"] . PHP_EOL);
+        } else {
+          throw new Exception("Unknown Error: " . $obj . PHP_EOL);
+        }
+
       }
-      return false;
+
+    } catch (Exception $e) {
+
+      if ($this->debug)
+        print_r($e->getMessage());
+
     }
 
     curl_close($ch);
@@ -1724,7 +1775,7 @@ class Api {
    * getrawtransaction "txid" (verbose "blockhash")
    *
    * Returns JSON object.
-   * 
+   *
      Input:
      {
      }
@@ -1781,7 +1832,7 @@ class Api {
          }
        ]
       }
-   * 
+   *
    */
   public function getrawtransaction($txid, $verbose = false, $blockhash = "") {
 
@@ -2716,7 +2767,7 @@ class Api {
    *
    */
   public function sendmany($fromaccount, $address, $amount, $minconf = 0, $comment, $replaceable, $conf_target, $estimate_mode) {
-    
+
     $args = $this->args;
     $args["method"] = "";
 
@@ -2732,7 +2783,7 @@ class Api {
    *
    */
   public function sendtoaddress($address, $amount, $comment, $comment_to, $subtractfeefromamount, $replaceable, $conf_target, $estimate_mode) {
-    
+ 
     $args = $this->args;
     $args["method"] = "";
 
