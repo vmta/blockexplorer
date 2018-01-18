@@ -2751,7 +2751,7 @@ class Api {
    *
    */
   public function sendfrom($fromaccount, $toaddress, $amount, $minconf = 0, $comment, $comment_to) {
-    
+
     $args = $this->args;
     $args["method"] = "";
 
@@ -2783,7 +2783,7 @@ class Api {
    *
    */
   public function sendtoaddress($address, $amount, $comment, $comment_to, $subtractfeefromamount, $replaceable, $conf_target, $estimate_mode) {
- 
+
     $args = $this->args;
     $args["method"] = "";
 
@@ -2794,14 +2794,20 @@ class Api {
 
 
   /* 100
+   * setaccount "address" "account"
    *
-   * Returns
+   * DEPRECATED. Sets the account associated with the given address.
+   *
+   * Arguments:
+   * 1. "address"         (string, required) The umkoin address to be associated with an account.
+   * 2. "account"         (string, required) The account to assign the address to.
    *
    */
   public function setaccount($address, $account) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = "setaccount";
+    $args["params"] = ["$address", "$account"];
 
     $res = $this->call($args);
     if ($res)
