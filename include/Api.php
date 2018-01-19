@@ -166,7 +166,7 @@ class Api {
   public function getbestblockhash() {
 
     $args = $this->args;
-    $args["method"] = "getbestblockhash";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
