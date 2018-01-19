@@ -103,9 +103,6 @@ class Api {
     curl_setopt($ch, CURLOPT_USERPWD, $this->auth);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
-//    $res = curl_exec($ch);
-//    if ($res === false && $this->debug) $this->throw(new Exception('Could not get reply: ' . curl_error($ch)));
-
     $res = null;
     try {
 
@@ -119,17 +116,6 @@ class Api {
         print_r($e->getMessage());
 
     }
-
-//    $obj = json_decode($res, TRUE);
-//    if (!isset($obj['result']) && $this->debug) {
-//      print_r("API call to '" . $req['method'] . "' returned ");
-//      if (isset($obj['error'])) {
-//        print_r("Error(" . $obj['error']['code'] . "): " . $obj['error']['message'] . PHP_EOL);
-//      } else {
-//        print_r("Unknown Error: " . $obj . PHP_EOL);
-//      }
-//      return false;
-//    }
 
     $obj = null;
     try {
