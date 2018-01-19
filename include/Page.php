@@ -14,6 +14,7 @@
  *
  * Changelog:
  *
+ * @TODO Unify DATE (use either gmdate() or date())
  */
 
 
@@ -55,6 +56,7 @@ class Page {
    *
    */
   private $html_footer_string;
+
 
 
   /* Class constructor */
@@ -115,7 +117,7 @@ class Page {
       for ($i = $txids_length - 1; $i >= 0; $i--) {
 
         $transactions[$i] = $this->block->getmempoolentry($txids[$i]);
-        $transactions_value[$i] = $this->block->gettransactionamount($txids[$i]);
+        $transactions_value[$i] = $this->block->getTxAmount($txids[$i]);
 
       }
 
@@ -130,7 +132,8 @@ class Page {
                      "</td><td>" .
                      $transactions[$i]["size"] .
                      "</td><td>" .
-                     "<a href='http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?txid=" . $transactions[$i]["wtxid"] . "'>" . $transactions[$i]["wtxid"] . "</a>" .
+//                     "<a href='http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?txid=" . $transactions[$i]["wtxid"] . "'>" . $transactions[$i]["wtxid"] . "</a>" .
+                     $transactions[$i]["wtxid"] .
                      "</td></tr>";
         }
 
@@ -283,18 +286,18 @@ class Page {
                 "<h2><i class='fa fa-cube fa-fw' aria-hidden='true'></i> Block <small id='block.hash' style='word-break: break-all;'>" . $reqval . "</small></h2>" .
                 "<div class='row'>" .
                   "<div class='col-md-6 stats'>" .
-                    "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Block index in the chain, counting from zero (i.e. genesis block).'><i class='fa fa-question-circle'></i></span> Height: <span id='block_height'><span id='block.height'>" . $this->block->getblockheight($reqval) . "</span></span></div>" .
-                    "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Block timestamp displayed as UTC. The timestamp correctness it up to miner, who mined the block.'><i class='fa fa-question-circle'></i></span> Timestamp: <span id='block.timestamp'>" . gmdate("M d, Y H:i:s", $this->block->getblocktime($reqval)) . "</span></div>" .
+                    "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Block index in the chain, counting from zero (i.e. genesis block).'><i class='fa fa-question-circle'></i></span> Height: <span id='block_height'><span id='block.height'>" . $this->block->getBlockHeight($reqval) . "</span></span></div>" .
+                    "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Block timestamp displayed as UTC. The timestamp correctness it up to miner, who mined the block.'><i class='fa fa-question-circle'></i></span> Timestamp: <span id='block.timestamp'>" . gmdate("M d, Y H:i:s", $this->block->getBlockTime($reqval)) . "</span></div>" .
                     "<div><span data-toggle='tooltip' data-placement='right' data-original-title='How difficult it is to find a solution for the block. More specifically, it`s mathematical expectation for number of hashes someone needs to calculate in order to find a correct nonce value solving the block.'><i class='fa fa-question-circle'></i></span> Difficulty: <span id='block.difficulty'>" . $this->block->getblockdifficulty($reqval) . "</span></div>" .
-                    "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Number of transactions in the block, including coinbase transaction (which transfers block reward to the miner).'><i class='fa fa-question-circle'></i></span> Transactions: <span id='block.transactions'>" . $this->block->getblocktransactionscount($reqval) . "</span></a></div>" .
+                    "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Number of transactions in the block, including coinbase transaction (which transfers block reward to the miner).'><i class='fa fa-question-circle'></i></span> Transactions: <span id='block.transactions'>" . $this->block->getBlockTxCount($reqval) . "</span></a></div>" .
                     "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Cumulative amount of coins issued by all the blocks in blockchain from the genesis and up to this block.'><i class='fa fa-question-circle'></i></span> Total coins in the network: <span id='block.totalCoins'>" . $this->block->getsupply() . "</span></div>" .
-                    "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Cumulative number of transactions in the blockchain, from the genesis block and up to this block.'><i class='fa fa-question-circle'></i></span> Total transactions in the network: <span id='block.totalTransactions'>" . $this->block->gettransactioncount() . "</span></div>" .
+                    "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Cumulative number of transactions in the blockchain, from the genesis block and up to this block.'><i class='fa fa-question-circle'></i></span> Total transactions in the network: <span id='block.totalTransactions'>" . $this->block->getTxCount() . "</span></div>" .
                   "</div>" .
 
                   "<div class='col-md-6 stats'>" .
                     "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Cumulative size of all transactions in the block, including coinbase. In case it's exceeding 'effective txs median' the reward penalty occurs and therefore miner receives less reward.'><i class='fa fa-question-circle'></i></span> Total transactions size, bytes: <span id='block.transactionsSize'>" . $this->block->getblocktransactionssize($reqval) . "</span></div>" .
                     "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Size of the whole block, i.e. block header plus all transactions.'><i class='fa fa-question-circle'></i></span> Total block size, bytes: <span id='block.blockSize'>" . $this->block->getblocksize($reqval) .  "</span></div>" .
-                    "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Sum of values for all transactions in the block.'><i class='fa fa-question-circle'></i></span> Transactions amount: <span id='block.totalAmount'>" . $this->block->getblockamount($reqval) . "</span></div>" .
+                    "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Sum of values for all transactions in the block.'><i class='fa fa-question-circle'></i></span> Transactions amount: <span id='block.totalAmount'>" . $this->block->getBlockAmount($reqval) . "</span></div>" .
                     "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Sum of fees for all transactions in the block.'><i class='fa fa-question-circle'></i></span> Transactions fee: <span id='block.transactionsFee'>" . $this->block->getblockfees($reqval) . "</span></div>" .
                     "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Base value for calculating the block reward. Does not depend on how many transactions are included into the block. Also, this is how many coins the miner would receive if the block contains only coinbase transaction.'><i class='fa fa-question-circle'></i></span> Base reward: <span id='block.baseReward'>" . $this->block->getbasereward($reqval) . "</span></div>" .
                     "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Actual amount of coins the miner received for finding the block. &lt;reward&gt; = &lt;base reward&gt; × (1 − &lt;penalty&gt;) + &lt;transactions fee&gt;'><i class='fa fa-question-circle'></i></span> Reward: <span id='block.reward'>" . $this->block->getreward($reqval, 'hash') . "</span></div>" .
@@ -325,13 +328,69 @@ class Page {
 
         case "txid":
 
+          if ($this->block->isConfirmed($reqval, "txid")) {
+            $confirmtime = $this->block->getTxConfirmTime($reqval);
+            $currenttime = time();
+            $elapsed = $currenttime - $confirmtime;
+            switch ($elapsed) {
+              case $elapsed > 31536000:
+                $elapsed = floor($elapsed / 31536000);
+                if ($elapsed == 1)
+                  $elapsed_str = $elapsed . " year ago";
+                else
+                  $elapsed_str = $elapsed . " years ago";
+                break;
+              case $elapsed > 86400:
+                $elapsed = floor($elapsed / 86400);
+                if ($elapsed == 1)
+                  $elapsed_str = $elapsed . " day ago";
+                else
+                  $elapsed_str = $elapsed . " days ago";
+                break;
+              case $elapsed > 3600:
+                $elapsed = floor($elapsed / 3600);
+                if ($elapsed == 1)
+                  $elapsed_str = $elapsed . " hour ago";
+                else
+                  $elapsed_str = $elapsed . " hours ago";
+                break;
+              case $elapsed > 60:
+                $elapsed = floor($elapsed / 60);
+                if ($elapsed == 1)
+                  $elapsed_str = $elapsed . " minute ago";
+                else
+                  $elapsed_str = $elapsed . " minutes ago";
+                break;
+              default:
+                if ($elapsed == 1)
+                  $elapsed_str = $elapsed . " second ago";
+                else
+                  $elapsed_str = $elapsed . " seconds ago";
+                break;
+            }
+
+            $blockconfirmed = "<div id='confirmations' style='display: block;'>" .
+                              "<span data-toggle='tooltip' data-placement='right' data-original-title='The number of network confirmations.'>" .
+                              "<i class='fa fa-question-circle'></i>" .
+                              "</span> Confirmations: " .
+                              "<span id='transaction.confirmations'>" .
+                              $this->block->getTxConfirmCount($reqval) .
+                              "</span>, First confirmation time: " .
+                              "<span id='transaction.timestamp'>" .
+                              gmdate("M d, Y H:i:s", $this->block->getTxConfirmTime($reqval)) .
+                              "</span> (<time class='transaction-timeago'>" .
+                              (isset($elapsed_str) ? $elapsed_str : "") .
+                              "</time>)</div>";
+          }
+
           $this->html_content_string .= "<h2><i class='fa fa-exchange fa-fw' aria-hidden='true'></i> Transaction</h2>" .
             "<div class='row' id='tx_info'>" .
               "<div class='col-md-12 stats'>" .
-                "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Unique fingerprint of the transaction.'><i class='fa fa-question-circle'></i></span> Hash: <span id='transaction.hash' style='word-break: break-all;'></span></div>" .
-                  "<div id='confirmations' style='display: none;'><span data-toggle='tooltip' data-placement='right' data-original-title='The number of network confirmations.'><i class='fa fa-question-circle'></i></span> Confirmations: <span id='transaction.confirmations'></span>, First confirmation time: <span id='transaction.timestamp'></span> (<time class='transaction-timeago'></time>)</div>" .
+                "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Unique fingerprint of the transaction.'><i class='fa fa-question-circle'></i></span> Hash: <span id='transaction.hash' style='word-break: break-all;'>" . $this->block->getTxHash($reqval) . "</span></div>" .
+//                  "<div id='confirmations' style='display: none;'><span data-toggle='tooltip' data-placement='right' data-original-title='The number of network confirmations.'><i class='fa fa-question-circle'></i></span> Confirmations: <span id='transaction.confirmations'>" . $this->block->getTxConfirmCount($reqval) . "</span>, First confirmation time: <span id='transaction.timestamp'>" . $this->block->getTxConfirmTime($reqval) . "</span> (<time class='transaction-timeago'></time>)</div>" .
+                  (isset($blockconfirmed) ? $blockconfirmed : "") .
                 "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Money that goes to the miner, who included this transaction into block.'><i class='fa fa-question-circle'></i></span> Fee: <span id='transaction.fee'></span></div>" .
-                "<div><span data-toggle='tooltip' data-placement='right' data-original-title='It does not mean that this is the amount that is actually transferred.'><i class='fa fa-question-circle'></i></span> Sum of outputs: <span id='transaction.amount_out'></span></div>" .
+                "<div><span data-toggle='tooltip' data-placement='right' data-original-title='It does not mean that this is the amount that is actually transferred.'><i class='fa fa-question-circle'></i></span> Sum of outputs: <span id='transaction.amount_out'>" . $this->block->getTxSum($reqval) . "</span></div>" .
                 "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Size of the transaction in bytes.'><i class='fa fa-question-circle'></i></span> Size: <span id='transaction.size'></span></div>" .
                 "<div id='div_transaction_paymentId'><span data-toggle='tooltip' data-placement='right' data-original-title='Optional user-defined hexadecimal characters string. Can be used by anyone to distinguish the transactions easier.'><i class='fa fa-question-circle'></i></span> Payment ID: <span id='transaction.paymentId'></span><br />Payment ID decoding: <em id='transaction.paymentIdDecifer'></em></div>" .
                 "<div id='div_transaction_mixin'><span data-toggle='tooltip' data-placement='right' data-original-title='Denotes how many random inputs are mixed within this transactions in order to achieve desired level of anonimity. Mixin count 1 means no additional inputs are mixed in and thus each input can be traced back.'><i class='fa fa-question-circle'></i></span> Mixin count: <span id='transaction.mixin'></span></div>" .
@@ -342,14 +401,16 @@ class Page {
               "<h3><i class='fa fa-cube fa-fw' aria-hidden='true'></i> In block</h3>" .
               "<div class='row'>" .
                 "<div class='col-md-12 stats'>" .
-                  "<div><i class='fa fa-circle-o'></i> Hash: <span id='block.hash' style='word-break: break-all;'></span></div>" .
-                  "<div><i class='fa fa-circle-o'></i> Height: <span id='block.height'></span></div>" .
-                  "<div><i class='fa fa-circle-o'></i> Timestamp: <span id='block.timestamp'></span></div>" .
+                  "<div><i class='fa fa-circle-o'></i> Hash: <span id='block.hash' style='word-break: break-all;'>" .
+                    "<a href='http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?blockhash=" . $this->block->getBlockHashByTxid($reqval) . "'>" . $this->block->getBlockHashByTxid($reqval) . "</a>" .
+                  "</span></div>" .
+                  "<div><i class='fa fa-circle-o'></i> Height: <span id='block.height'>" . $this->block->getBlockHeight($reqval, 'txid') . "</span></div>" .
+                  "<div><i class='fa fa-circle-o'></i> Timestamp: <span id='block.timestamp'>" . gmdate("M d, Y H:i:s", $this->block->getBlockTime($reqval, 'txid')) . "</span></div>" .
                 "</div>" .
               "</div>" .
             "</div>" .
 
-            "<h3 class='inputs'>Inputs (<span id='inputs_count'></span>)</h3>" .
+            "<h3 class='inputs'>Inputs (<span id='inputs_count'>" . $this->block->getTxCountInOut($reqval, 'vin') . "</span>)</h3>" .
             "<div class='table-responsive'>" .
               "<table class='table table-hover'>" .
               "<thead>" .
@@ -364,7 +425,7 @@ class Page {
               "</table>" .
             "</div>" .
 
-            "<h3 class='outputs'>Outputs (<span id='outputs_count'></span>)</h3>" .
+            "<h3 class='outputs'>Outputs (<span id='outputs_count'>" . $this->block->getTxCountInOut($reqval, 'vout') . "</span>)</h3>" .
             "<div class='table-responsive'>" .
               "<table class='table table-hover'>" .
               "<thead>" .
@@ -419,7 +480,7 @@ class Page {
                                 "<a href='#' data-toggle='tooltip' data-placement='top' data-original-title='The number of transactions in the network (excluding coinbase, i.e. reward for mined blocks.).'>".
                                   "<i class='fa fa fa-exchange'></i> Transactions: " .
                                   "<span id='networkTransactions'>" .
-                                    $this->block->gettransactioncount() .
+                                    $this->block->getTxCount() .
                                   "</span>" .
                                 "</a>" .
                               "</li>" .

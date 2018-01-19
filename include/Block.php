@@ -14,6 +14,9 @@
  *
  * Changelog:
  *
+ * v0.0.1
+ * Initial code
+ *
  */
 
 
@@ -80,10 +83,16 @@ class Block extends Api {
   }
 
 
+
+  /**********************************/
+  /*    Block-related functions     */
+  /**********************************/
+
+
   /*
    * Return cumulative value amount for the given block.
    */
-  public function getblockamount($hash, $flag = 'hash', $inout = 'out') {
+  public function getBlockAmount($hash, $flag = 'hash', $inout = 'out') {
 
     if ($flag != 'hash') {
       $hash = $this->getblockhash($hash);
@@ -99,9 +108,6 @@ class Block extends Api {
       for ($j = 0; $j < count($varr); $j++) {
         $amount += $varr[$j]["value"];
       }
-//var_dump($tx_decoded["v$inout"]);
-
-//      $amount += $tx_decoded["size"];
     }
 
     return $amount;
@@ -134,7 +140,7 @@ class Block extends Api {
     for ($i = 0; $i < count($txids); $i++) {
       $txid = $this->gettransaction($txids[$i]);
       if (isset($txid["fee"]))
-        $fees += $txid["fee"];
+        $fees += abs($txid["fee"]);
     }
 
     return $fees;
@@ -142,11 +148,28 @@ class Block extends Api {
 
 
   /*
+   * Returns hash of the block which contains requested
+   * transaction based on the original getrawtransaction
+   * set of data by extracting 'blockhash' field.
+   */
+  public function getBlockHashByTxid($txid) {
+
+    $res = $this->getrawtransaction($txid, true);
+    if ($res)
+      return $res["blockhash"];
+  }
+
+
+  /*
    * Returns height of the block by its hash.
    */
-  public function getblockheight($hash) {
+  public function getBlockHeight($hash, $flag = "block") {
 
-    $res = $this->getblock($hash);
+    if ($flag == "txid")
+      $res = $this->getblock($this->getrawtransaction($hash, true)["blockhash"]);
+    else
+      $res = $this->getblock($hash);
+
     if ($res)
       return $res["height"];
   }
@@ -164,11 +187,15 @@ class Block extends Api {
 
 
   /*
-   * Returns time of the block by its hash.
+   * Returns time of the block by block hash.
    */
-  public function getblocktime($hash) {
+  public function getBlockTime($blockhash, $flag = "block") {
 
-    $res = $this->getblock($hash);
+    if ($flag == "txid")
+      $res = $this->getblock($this->getBlockHashByTxid($blockhash));
+    else
+      $res = $this->getblock($blockhash);
+
     if ($res)
       return $res["time"];
   }
@@ -177,9 +204,9 @@ class Block extends Api {
   /*
    * Return transactions count in a block by block hash.
    */
-  public function getblocktransactionscount($hash) {
+  public function getBlockTxCount($blockhash) {
 
-    $res = $this->getblock($hash);
+    $res = $this->getblock($blockhash);
     if ($res)
       return count($res["tx"]);
   }
@@ -191,20 +218,43 @@ class Block extends Api {
   public function getblocktransactionshtml($hash) {
 
     $res = $this->getblock($hash);
-
-    $tx_hash = "";
-    $tx_fee = 0;
-    $tx_amount = 0;
-    $tx_size = 0;
+    $html_str = "";
 
     for ($i = 0; $i < count($res["tx"]); $i++) {
-      $tx_raw = $this->getrawtransaction($res["tx"][$i]);
-      $tx_decoded = $this->decoderawtransaction($tx_raw);
-//@TODO
 
-      
+      $tx_fee = 0;
+      $tx_amount = 0;
+
+      /* Get transaction */
+      $txid = $this->gettransaction($res["tx"][$i]);
+      $tx_raw = $this->getrawtransaction($res["tx"][$i], true);
+
+      /* Retrieve transaction fee */
+      if (isset($txid["fee"]))
+        $tx_fee = abs($txid["fee"]);
+
+      /* Calculate transaction total value */
+      for ($j = 0; $j < count($tx_raw["vout"]); $j++) {
+        $tx_amount += $tx_raw["vout"][$j]["value"];
+      }
+
+      /* Retrieve transaction size */
+      $tx_size = $tx_raw["size"];
+
+      $html_str .= "<tr>" .
+                   "<td>" .
+                   "<a href='http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?txid=" . $tx_raw["txid"] . "'>" . $tx_raw["hash"] . "</a>" .
+                   "</td><td>" .
+                     $tx_fee .
+                   "</td><td>" .
+                     $tx_amount .
+                   "</td><td>" .
+                     $tx_size .
+                   "</td>" .
+                   "</tr>";
     }
 
+    return $html_str;
   }
 
 
@@ -322,11 +372,45 @@ class Block extends Api {
 
 
   /*
+   * Returns true if block is confirmed, false otherwise.
+   */
+  public function isConfirmed($hash, $flag = "block") {
+
+    if ($flag == "txid")
+      $res = $this->getrawtransaction($hash, true);
+    else
+      $res = $this->getblock($hash);
+
+    if ($res["confirmations"])
+      return true;
+
+    return false;
+  }
+
+
+
+  /**********************************/
+  /* Transactions-related functions */
+  /**********************************/
+
+
+  /*
+   * Returns number of transaction inputs/outputs.
+   */
+  public function getTxCountInOut($txid, $flag = "vout") {
+
+    $res = $this->getrawtransaction($txid, true);
+    if ($res)
+      return count($res[$flag]);
+  }
+
+
+  /*
    * Returns transactions amount as the sum of all VOUTs
    * based on the mix of getrawtransaction and
    * decoderawtransaction functions.
    */
-  public function gettransactionamount($txid) {
+  public function getTxAmount($txid) {
 
     $rawtx = $this->getrawtransaction($txid, false);
     $tx = $this->decoderawtransaction($rawtx)['vout'];
@@ -341,11 +425,39 @@ class Block extends Api {
 
 
   /*
+   * Returns number of block confirmations which holds
+   * the requested transaction based on the original
+   * getrawtransaction set of data by extracting
+   * 'confirmations' field.
+   */
+  public function getTxConfirmCount($txid) {
+
+    $res = $this->getrawtransaction($txid, true);
+    if ($res)
+      return $res['confirmations'];
+  }
+
+
+  /*
+   * Returns seconds since 01.01.1970 a block holding
+   * the requested transaction was first confirmed
+   * based on the original getrawtransaction set of
+   * data by extracting 'blocktime' field.
+   */
+  public function getTxConfirmTime($txid) {
+
+    $res = $this->getrawtransaction($txid, true);
+    if ($res)
+      return $res['blocktime'];
+  }
+
+
+  /*
    * Returns transactions count based on the original
    * gettxoutsetinfo set of data by extracting
    * 'transactions' field.
    */
-  public function gettransactioncount() {
+  public function getTxCount() {
 
     $res = $this->gettxoutsetinfo();
     if ($res)
@@ -353,12 +465,44 @@ class Block extends Api {
   }
 
 
-  /**********************************/
-  /* Transactions-related functions */
-  /**********************************/
+  /*
+   * Returns transaction hash based on the original
+   * getrawtransaction set of data by extracting
+   * 'hash' field.
+   */
+  public function getTxHash($txid) {
+
+    $res = $this->getrawtransaction($txid, true);
+    if ($res)
+      return $res["hash"];
+  }
 
 
-  public function gettransactionsize($txid) {}
+  /*
+   * Returns sum of transaction amounts depending
+   * on the flag, whether VIN or VOUT, by default
+   * assume only VOUTs are of interest.
+   */
+  public function getTxSum($txid, $flag = "vout") {
+
+    $res = $this->getrawtransaction($txid, true);
+
+    $txsum = 0;
+    for ($i = 0; $i < $this->getTxCountInOut($txid, $flag); $i++) {
+
+      $txsum += $res[$flag][$i]["value"];
+
+    }
+
+    if ($txsum)
+      return $txsum;
+  }
+
+
+  //public function gettransactionsize($txid) {}
+
+  // @TODO
+  // public function gettxfee($txid) {}
 
 }
 
