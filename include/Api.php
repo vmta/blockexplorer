@@ -444,7 +444,7 @@ class Api {
   public function getchaintxstats($nblocks = 0) {
 
     $args = $this->args;
-    $args["method"] = "getchaintxstats";
+    $args["method"] = __FUNCTION__;
     $args["params"] = [$nblocks];
 
     $res = $this->call($args);
