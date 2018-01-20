@@ -211,7 +211,7 @@ class Api {
   public function getblock($blockhash = "00000000470b9e0dd4f6fb72c93e0c655f68069899a5b2a0b4e413ef8006469a") {
 
     $args = $this->args;
-    $args["method"] = "getblock";
+    $args["method"] = __FUNCTION__;
     $args["params"] = ["$blockhash"];
 
     $res = $this->call($args);
