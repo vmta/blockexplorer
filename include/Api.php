@@ -570,7 +570,7 @@ class Api {
     if ( empty($txid) ) $txid = $this->getrawmempool[0];
 
     $args = $this->args;
-    $args["method"] = "getmempoolentry";
+    $args["method"] = __FUNCTION__;
     $args["params"] = ["$txid"];
 
     $res = $this->call($args);
