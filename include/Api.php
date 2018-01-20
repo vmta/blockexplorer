@@ -602,7 +602,7 @@ class Api {
   public function getmempoolinfo() {
 
     $args = $this->args;
-    $args["method"] = "getmempoolinfo";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
