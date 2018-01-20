@@ -312,7 +312,7 @@ class Api {
   public function getblockcount() {
 
     $args = $this->args;
-    $args["method"] = "getblockcount";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
       if ($res)
