@@ -325,7 +325,7 @@ class Page {
                 "<div class='row'>" .
                   "<div class='col-md-6 stats'>" .
                     "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Block index in the chain, counting from zero (i.e. genesis block).'><i class='fa fa-question-circle'></i></span> Height: <span id='block_height'><span id='block.height'>" . $this->block->getBlockHeight($reqval) . "</span></span></div>" .
-                    "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Block timestamp displayed as UTC. The timestamp correctness it up to miner, who mined the block.'><i class='fa fa-question-circle'></i></span> Timestamp: <span id='block.timestamp'>" . gmdate("M d, Y H:i:s", $this->block->getBlockTime($reqval)) . "</span></div>" .
+                    "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Block timestamp displayed as UTC. The timestamp correctness it up to miner, who mined the block.'><i class='fa fa-question-circle'></i></span> Timestamp: <span id='block.timestamp'>" . date("M d, Y H:i:s", $this->block->getBlockTime($reqval)) . "</span></div>" .
                     "<div><span data-toggle='tooltip' data-placement='right' data-original-title='How difficult it is to find a solution for the block. More specifically, it`s mathematical expectation for number of hashes someone needs to calculate in order to find a correct nonce value solving the block.'><i class='fa fa-question-circle'></i></span> Difficulty: <span id='block.difficulty'>" . $this->block->getblockdifficulty($reqval) . "</span></div>" .
                     "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Number of transactions in the block, including coinbase transaction (which transfers block reward to the miner).'><i class='fa fa-question-circle'></i></span> Transactions: <span id='block.transactions'>" . $this->block->getBlockTxCount($reqval) . "</span></a></div>" .
                     "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Cumulative amount of coins issued by all the blocks in blockchain from the genesis and up to this block.'><i class='fa fa-question-circle'></i></span> Total coins in the network: <span id='block.totalCoins'>" . $this->block->getsupply() . "</span></div>" .
@@ -415,7 +415,7 @@ class Page {
                               $this->block->getTxConfirmCount($reqval) .
                               "</span>, First confirmation time: " .
                               "<span id='transaction.timestamp'>" .
-                              gmdate("M d, Y H:i:s", $this->block->getTxConfirmTime($reqval)) .
+                              date("M d, Y H:i:s", $this->block->getTxConfirmTime($reqval)) .
                               "</span> (<time class='transaction-timeago'>" .
                               (isset($elapsed_str) ? $elapsed_str : "") .
                               "</time>)</div>";
@@ -443,7 +443,7 @@ class Page {
                     "<a href='http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?blockhash=" . $this->block->getBlockHashByTxid($reqval) . "'>" . $this->block->getBlockHashByTxid($reqval) . "</a>" .
                   "</span></div>" .
                   "<div><i class='fa fa-circle-o'></i> Height: <span id='block.height'>" . $this->block->getBlockHeight($reqval, 'txid') . "</span></div>" .
-                  "<div><i class='fa fa-circle-o'></i> Timestamp: <span id='block.timestamp'>" . gmdate("M d, Y H:i:s", $this->block->getBlockTime($reqval, 'txid')) . "</span></div>" .
+                  "<div><i class='fa fa-circle-o'></i> Timestamp: <span id='block.timestamp'>" . date("M d, Y H:i:s", $this->block->getBlockTime($reqval, 'txid')) . "</span></div>" .
                 "</div>" .
               "</div>" .
             "</div>" .
