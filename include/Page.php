@@ -193,6 +193,44 @@ class Page {
 
 
   /*
+   * Prepare transaction inputs/outputs table.
+   */
+  public function displayTxTableInOut($hash, $flag = "vout") {
+
+    $str = "";
+    $res = $this->block->getrawtransaction($hash, true);
+
+    if ($flag == "vin") {
+      for ($i = 0; $i < $this->block->getTxCountInOut($hash, $flag); $i++) {
+        $addresses = $this->block->getTxVinAddress($res[$flag][$i]["txid"], $res[$flag][$i]["vout"]);
+        for ($j = 0; $j < count($addresses); $j++) {
+          $addresses_str = "<div>" . $addresses[$j] . "</div>";
+        }
+        $str .= "<tr>" .
+                "<td>" . $this->block->getTxVinAmount($res[$flag][$i]["txid"], $res[$flag][$i]["vout"]) . "</td>" .
+                "<td><a href='http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?txid=" . $res[$flag][$i]["txid"] . "'>" . $res[$flag][$i]["txid"] . "</a></td>" .
+                "<td>" . (isset($addresses_str) ? $addresses_str : "") . "</td>" .
+                "</tr>";
+      }
+    } else {
+      for ($i = 0; $i < this->block->getTxCountInOut($hash, $flag); $i++) {
+        for ($j = 0; $j < count($res[$flag][$i]["scriptPubKey"]["addresses"]); $j++) {
+          $addresses_str = "<div>" . $res[$flag][$i]["scriptPubKey"]["addresses"][$j] . "</div>";
+        }
+        $str .= "<tr>" .
+                "<td>" . $res[$flag][$i]["value"] . " UMK</td>" .
+                "<td>" . $res[$flag[$i]["scriptPubKey"]["hex"] . "</td>" .
+                "<td>" . (isset($addresses_str) ? $addresses_str : "") . "</td>" .
+                "</tr>";
+      }
+    }
+
+    return $str;
+  }
+
+
+
+  /*
    * Prepare and return html navigation bar.
    *
    */

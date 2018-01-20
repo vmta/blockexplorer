@@ -536,7 +536,7 @@ class Block extends Api {
   public function getTxVinAmount($txid, $vout = 0) {
 
     $res = $this->getrawtransaction($txid, true);
-    if($res)
+    if ($res)
       return $res["vout"][$vout]["value"];
   }
 
@@ -550,7 +550,7 @@ class Block extends Api {
     $res = $this->getrawtransaction($txid, true);
 
     for ($i = 0; $i < $this->getTxCountInOut($txid, "vin"); $i++) {
-      $txVinAmount += $this->getTxVinAmount($res["vin"][$i]["txid"], $res["vin"][$i]["vout"] * 100000000;
+      $txVinAmount += $this->getTxVinAmount($res["vin"][$i]["txid"], $res["vin"][$i]["vout"]) * 100000000;
     }
 
     $txAmount = $this->getTxSum($txid, "vout") * 100000000;
