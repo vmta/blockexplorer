@@ -498,7 +498,7 @@ class Api {
   public function getmempoolancestors($txid = 0) {
 
     $args = $this->args;
-    $args["method"] = "getmempoolancestors";
+    $args["method"] = __FUNCTION__;
     $args["params"] = ["$txid"];
 
     $res = $this->call($args);
