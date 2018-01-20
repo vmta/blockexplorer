@@ -380,7 +380,7 @@ class Api {
   public function getblockheader($hash) {
 
     $args = $this->args;
-    $args["method"] = "getblockheader";
+    $args["method"] = __FUNCTION__;
     $args["params"] = ["$hash"];
 
     $res = $this->call($args);
