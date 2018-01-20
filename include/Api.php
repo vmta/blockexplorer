@@ -527,7 +527,7 @@ class Api {
   public function getmempooldescendants($txid = 0) {
 
     $args = $this->args;
-    $args["method"] = "getmempooldescendants";
+    $args["method"] = __FUNCTION__;
     $args["params"] = ["$txid"];
 
     $res = $this->call($args);
