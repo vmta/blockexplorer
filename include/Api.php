@@ -698,7 +698,7 @@ class Api {
   public function gettxoutproof($txid, $hash) {
 
     $args = $this->args;
-    $args["method"] = "gettxoutproof";
+    $args["method"] = __FUNCTION__;
     $args["params"] = ["$txid"];
 
     if (!empty($hash))
