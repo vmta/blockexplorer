@@ -471,7 +471,7 @@ class Api {
   public function getdifficulty() {
 
     $args = $this->args;
-    $args["method"] = "getdifficulty";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
