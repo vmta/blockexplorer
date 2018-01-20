@@ -340,7 +340,7 @@ class Api {
   public function getblockhash($height = 0) {
 
     $args = $this->args;
-    $args["method"] = "getblockhash";
+    $args["method"] = __FUNCTION__;
     $args["params"] = [$height];
 
     $res = $this->call($args);
