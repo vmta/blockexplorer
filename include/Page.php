@@ -455,10 +455,11 @@ class Page {
               "<tr>" .
                 "<th><i class='fa fa-money'></i> Amount</th>" .
                 "<th><i class='fa fa-paw'></i> Image</th>" .
+                "<th><i class='fa fa-paw'></i> Address</th>" .
               "</tr>" .
               "</thead>" .
               "<tbody id='inputs_rows'>" .
-
+                $this->displayTxTableInOut($reqval, "vin") .
               "</tbody>" .
               "</table>" .
             "</div>" .
@@ -470,10 +471,11 @@ class Page {
               "<tr>" .
                 "<th><i class='fa fa-money'></i> Amount</th>" .
                 "<th><i class='fa fa-key'></i> Key</th>" .
+                "<th><i class='fa fa-key'></i> Address</th>" .
               "</tr>" .
               "</thead>" .
               "<tbody id='outputs_rows'>" .
-
+                $this->displayTxTableInOut($reqval, "vout") .
               "</tbody>" .
               "</table>" .
             "</div>";
