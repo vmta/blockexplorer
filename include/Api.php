@@ -631,7 +631,7 @@ class Api {
   public function getrawmempool() {
 
     $args = $this->args;
-    $args["method"] = "getrawmempool";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if($res)
