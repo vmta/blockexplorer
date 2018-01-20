@@ -176,7 +176,7 @@ class Block extends Api {
 
 
  /*
-  * Returns size of the block by its height.
+  * Returns size of the block by its hash.
   */
   public function getblocksize($hash) {
 
@@ -395,17 +395,6 @@ class Block extends Api {
 
 
   /*
-   * Returns number of transaction inputs/outputs.
-   */
-  public function getTxCountInOut($txid, $flag = "vout") {
-
-    $res = $this->getrawtransaction($txid, true);
-    if ($res)
-      return count($res[$flag]);
-  }
-
-
-  /*
    * Returns transactions amount as the sum of all VOUTs
    * based on the mix of getrawtransaction and
    * decoderawtransaction functions.
@@ -466,6 +455,17 @@ class Block extends Api {
 
 
   /*
+   * Returns number of transaction inputs/outputs.
+   */
+  public function getTxCountInOut($txid, $flag = "vout") {
+
+    $res = $this->getrawtransaction($txid, true);
+    if ($res)
+      return count($res[$flag]);
+  }
+
+
+  /*
    * Returns transaction hash based on the original
    * getrawtransaction set of data by extracting
    * 'hash' field.
@@ -475,6 +475,19 @@ class Block extends Api {
     $res = $this->getrawtransaction($txid, true);
     if ($res)
       return $res["hash"];
+  }
+
+
+  /*
+   * Returns transaction size based on the original
+   * getrawtransaction set of data by extracting
+   * 'size' field.
+   */
+  public function getTxSize($txid) {
+
+    $res = $this->getrawtransaction($txid, true);
+    if ($res)
+      return $res["size"];
   }
 
 
@@ -499,10 +512,51 @@ class Block extends Api {
   }
 
 
-  //public function gettransactionsize($txid) {}
+  /*
+   * Returns transaction vout addresses based on
+   * the original getrawtransaction set of data.
+   */
+  public function getTxVinAddress($txid, $vout = 0) {
 
-  // @TODO
-  // public function gettxfee($txid) {}
+    $res = $this->getrawtransaction($txid, true);
+
+    for ($i = 0; $i < count($res["vout"][$vout]["scriptPubKey"]["addresses"]); $i++) {
+      $addresses[] = $res["vout"][$vout]["scriptPubKey"]["addresses"][$i];
+    }
+
+    return (isset($addresses) ? $addresses : null);
+  }
+
+
+  /*
+   * Returns transaction vout amount based on the
+   * original getrawtransaction set of data by
+   * extracting 'value' field.
+   */
+  public function getTxVinAmount($txid, $vout = 0) {
+
+    $res = $this->getrawtransaction($txid, true);
+    if($res)
+      return $res["vout"][$vout]["value"];
+  }
+
+
+  /*
+   * Returns transaction fee by deducting sum of all
+   * transaction outputs from sum of all inputs.
+   */
+  public function getTxFee($txid) {
+
+    $res = $this->getrawtransaction($txid, true);
+
+    for ($i = 0; $i < $this->getTxCountInOut($txid, "vin"); $i++) {
+      $txVinAmount += $this->getTxVinAmount($res["vin"][$i]["txid"], $res["vin"][$i]["vout"] * 100000000;
+    }
+
+    $txAmount = $this->getTxSum($txid, "vout") * 100000000;
+
+    return $txVinAmount - $txAmount;
+  }
 
 }
 
