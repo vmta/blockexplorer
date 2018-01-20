@@ -412,7 +412,7 @@ class Api {
   public function getchaintips() {
 
     $args = $this->args;
-    $args["method"] = "getchaintips";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
