@@ -1344,7 +1344,7 @@ class Api {
   public function getconnectioncount() {
 
     $args = $this->args;
-    $args["method"] = "getconnectioncount";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
