@@ -1173,7 +1173,7 @@ class Api {
   public function submitblock($hexdata, $dummy = "dummy") {
 
     $args = $this->args;
-    $args["method"] = "submitblock";
+    $args["method"] = __FUNCTION__;
     $args["params"] = [ "$hexdata", "$dummy" ];
 
     $res = $this->call($args);
