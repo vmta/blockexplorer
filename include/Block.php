@@ -232,7 +232,7 @@ class Block extends Api {
       /* Retrieve transaction fee */
       //if (isset($txid["fee"]))
       //  $tx_fee = abs($txid["fee"]);
-      $tx_fee = round($this->getTxFee($res["tx"][$i]/100000000, 8));
+      $tx_fee = round($this->getTxFee($res["tx"][$i])/100000000, 8);
 
       /* Calculate transaction total value */
       for ($j = 0; $j < count($tx_raw["vout"]); $j++) {
