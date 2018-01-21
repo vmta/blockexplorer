@@ -1315,7 +1315,7 @@ class Api {
   public function getaddednodeinfo($node = "") {
 
     $args = $this->args;
-    $args["method"] = "getaddednodeinfo";
+    $args["method"] = __FUNCTION__;
     if (!empty($node))
       $args["params"] = ["$node"];
 
