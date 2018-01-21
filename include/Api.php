@@ -61,7 +61,7 @@ class Api {
    * generate debug info on calls or not
    *
    */
-  private $debug = false;
+  private $debug;
 
 
   /*
@@ -72,10 +72,11 @@ class Api {
    * "http", on "localhost" and with rpc port 6332.
    *
    */
-  public function __construct($server = "http://127.0.0.1:6332", $auth = "rpcuser:rpcpass") {
+  public function __construct($server = "http://127.0.0.1:6332", $auth = "rpcuser:rpcpass", $debug = false) {
     $this->server = $server;
     $this->auth = $auth;
     $this->args = [ "jsonrpc" => "2.0", "id" => "curl", "method" => "", "params" => [] ];
+    $this->debug = $debug;
   }
 
 
@@ -735,7 +736,7 @@ class Api {
   public function gettxoutsetinfo() {
 
     $args = $this->args;
-    $args["method"] = "gettxoutsetinfo";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
