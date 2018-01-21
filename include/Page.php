@@ -213,13 +213,13 @@ class Page {
                 "</tr>";
       }
     } else {
-      for ($i = 0; $i < this->block->getTxCountInOut($hash, $flag); $i++) {
+      for ($i = 0; $i < $this->block->getTxCountInOut($hash, $flag); $i++) {
         for ($j = 0; $j < count($res[$flag][$i]["scriptPubKey"]["addresses"]); $j++) {
           $addresses_str = "<div>" . $res[$flag][$i]["scriptPubKey"]["addresses"][$j] . "</div>";
         }
         $str .= "<tr>" .
                 "<td>" . $res[$flag][$i]["value"] . " UMK</td>" .
-                "<td>" . $res[$flag[$i]["scriptPubKey"]["hex"] . "</td>" .
+                "<td>" . $res[$flag][$i]["scriptPubKey"]["hex"] . "</td>" .
                 "<td>" . (isset($addresses_str) ? $addresses_str : "") . "</td>" .
                 "</tr>";
       }
