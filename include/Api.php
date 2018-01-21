@@ -932,7 +932,7 @@ class Api {
   public function uptime() {
 
     $args = $this->args;
-    $args["method"] = "uptime";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
