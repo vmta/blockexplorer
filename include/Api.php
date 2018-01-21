@@ -964,7 +964,7 @@ class Api {
   public function generate($nblocks = 1, $maxtries = 1000) {
 
     $args = $this->args;
-    $args["method"] = "generate";
+    $args["method"] = __FUNCTION__;
     $args["params"] = [$nblocks, $maxtries];
 
     $res = $this->call($args);
