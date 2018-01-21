@@ -992,7 +992,7 @@ class Api {
   public function generatetoaddress($nblocks = 1, $address, $maxtries = 1000) {
 
     $args = $this->args;
-    $args["method"] = "generatetoaddress";
+    $args["method"] = __FUNCTION__;
     $args["params"] = [$nblocks, $address, $maxtries];
 
     $res = $this->call($args);
