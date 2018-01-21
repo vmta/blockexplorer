@@ -1057,7 +1057,7 @@ class Api {
   public function getblocktemplate() {
 
     $args = $this->args;
-    $args["method"] = __FUNCTION;
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
