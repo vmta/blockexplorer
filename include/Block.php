@@ -138,9 +138,10 @@ class Block extends Api {
     $txids = $this->getblock($hash)["tx"];
 
     for ($i = 0; $i < count($txids); $i++) {
-      $txid = $this->gettransaction($txids[$i]);
-      if (isset($txid["fee"]))
-        $fees += abs($txid["fee"]);
+//      $txid = $this->gettransaction($txids[$i]);
+//      if (isset($txid["fee"]))
+//        $fees += abs($txid["fee"]);
+      $fees += $this->getTxFee($txids[$i]);
     }
 
     return $fees;
