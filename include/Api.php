@@ -1260,7 +1260,7 @@ class Api {
   public function disconnectnode($address, $nodeid) {
 
     $args = $this->args;
-    $args["method"] = "disconnectnode";
+    $args["method"] = __FUNCTION__;
     if (!empty($nodeid))
       $args["params"] = [ "", $nodeid ];
     else
