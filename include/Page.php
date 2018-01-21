@@ -208,13 +208,13 @@ class Page {
             $addresses_str = "<div>" . $addresses[$j] . "</div>";
           }
           $str .= "<tr>" .
-                  "<td>" . $this->block->getTxVinAmount($res[$flag][$i]["txid"], $res[$flag][$i]["vout"]) . "</td>" .
+                  "<td>" . $this->block->getTxVinAmount($res[$flag][$i]["txid"], $res[$flag][$i]["vout"]) . " UMK</td>" .
                   "<td><a href='http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?txid=" . $res[$flag][$i]["txid"] . "'>" . $res[$flag][$i]["txid"] . "</a></td>" .
                   "<td>" . (isset($addresses_str) ? $addresses_str : "") . "</td>" .
                   "</tr>";
         } else {
           $str .= "<tr>" .
-                  "<td>" . $this->block->getreward($res["blockhash"], "hash") . "</td>" .
+                  "<td>" . $this->block->getreward($res["blockhash"], "hash") . " UMK</td>" .
                   "<td>Block reward</td>" .
                   "<td>Coinbase</td>" .
                   "</tr>";
