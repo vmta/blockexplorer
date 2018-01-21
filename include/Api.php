@@ -812,7 +812,7 @@ class Api {
   public function verifychain() {
 
     $args = $this->args;
-    $args["method"] = "verifychain";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
