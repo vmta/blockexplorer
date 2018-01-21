@@ -1090,7 +1090,7 @@ class Api {
   public function getmininginfo() {
 
     $args = $this->args;
-    $args["method"] = "getmininginfo";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
