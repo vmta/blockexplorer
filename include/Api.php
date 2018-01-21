@@ -879,7 +879,7 @@ class Api {
   public function getmemoryinfo() {
 
     $args = $this->args;
-    $args["method"] = "getmemoryinfo";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
