@@ -202,15 +202,23 @@ class Page {
 
     if ($flag == "vin") {
       for ($i = 0; $i < $this->block->getTxCountInOut($hash, $flag); $i++) {
-        $addresses = $this->block->getTxVinAddress($res[$flag][$i]["txid"], $res[$flag][$i]["vout"]);
-        for ($j = 0; $j < count($addresses); $j++) {
-          $addresses_str = "<div>" . $addresses[$j] . "</div>";
+        if (!isset($res[$flag][$i]["coinbase"])) {
+          $addresses = $this->block->getTxVinAddress($res[$flag][$i]["txid"], $res[$flag][$i]["vout"]);
+          for ($j = 0; $j < count($addresses); $j++) {
+            $addresses_str = "<div>" . $addresses[$j] . "</div>";
+          }
+          $str .= "<tr>" .
+                  "<td>" . $this->block->getTxVinAmount($res[$flag][$i]["txid"], $res[$flag][$i]["vout"]) . "</td>" .
+                  "<td><a href='http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?txid=" . $res[$flag][$i]["txid"] . "'>" . $res[$flag][$i]["txid"] . "</a></td>" .
+                  "<td>" . (isset($addresses_str) ? $addresses_str : "") . "</td>" .
+                  "</tr>";
+        } else {
+          $str .= "<tr>" .
+                  "<td>" . $this->block->getreward($res["blockhash"], "hash") . "</td>" .
+                  "<td>Block reward</td>" .
+                  "<td>Coinbase</td>" .
+                  "</tr>";
         }
-        $str .= "<tr>" .
-                "<td>" . $this->block->getTxVinAmount($res[$flag][$i]["txid"], $res[$flag][$i]["vout"]) . "</td>" .
-                "<td><a href='http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?txid=" . $res[$flag][$i]["txid"] . "'>" . $res[$flag][$i]["txid"] . "</a></td>" .
-                "<td>" . (isset($addresses_str) ? $addresses_str : "") . "</td>" .
-                "</tr>";
       }
     } else {
       for ($i = 0; $i < $this->block->getTxCountInOut($hash, $flag); $i++) {
