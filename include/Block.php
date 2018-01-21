@@ -144,7 +144,7 @@ class Block extends Api {
       $fees += $this->getTxFee($txids[$i]);
     }
 
-    return $fees;
+    return round($fees/100000000, 8);
   }
 
 
@@ -481,7 +481,9 @@ class Block extends Api {
 
     $txAmount = $this->getTxSum($txid, "vout") * 100000000;
 
-    return $txVinAmount - $txAmount;
+    $txFee = $txVinAmount - $txAmount;
+
+    return ($txFee > 0) ? $txFee : 0;
   }
 
 
