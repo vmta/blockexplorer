@@ -226,12 +226,13 @@ class Block extends Api {
       $tx_amount = 0;
 
       /* Get transaction */
-      $txid = $this->gettransaction($res["tx"][$i]);
+      //$txid = $this->gettransaction($res["tx"][$i]);
       $tx_raw = $this->getrawtransaction($res["tx"][$i], true);
 
       /* Retrieve transaction fee */
-      if (isset($txid["fee"]))
-        $tx_fee = abs($txid["fee"]);
+      //if (isset($txid["fee"]))
+      //  $tx_fee = abs($txid["fee"]);
+      $tx_fee = $this->getTxFee($res["tx"][$i]);
 
       /* Calculate transaction total value */
       for ($j = 0; $j < count($tx_raw["vout"]); $j++) {
@@ -466,6 +467,24 @@ class Block extends Api {
 
 
   /*
+   * Returns transaction fee by deducting sum of all
+   * transaction outputs from sum of all inputs.
+   */
+  public function getTxFee($txid) {
+
+    $res = $this->getrawtransaction($txid, true);
+
+    for ($i = 0; $i < $this->getTxCountInOut($txid, "vin"); $i++) {
+      $txVinAmount += $this->getTxVinAmount($res["vin"][$i]["txid"], $res["vin"][$i]["vout"]) * 100000000;
+    }
+
+    $txAmount = $this->getTxSum($txid, "vout") * 100000000;
+
+    return $txVinAmount - $txAmount;
+  }
+
+
+  /*
    * Returns transaction hash based on the original
    * getrawtransaction set of data by extracting
    * 'hash' field.
@@ -538,24 +557,6 @@ class Block extends Api {
     $res = $this->getrawtransaction($txid, true);
     if ($res)
       return $res["vout"][$vout]["value"];
-  }
-
-
-  /*
-   * Returns transaction fee by deducting sum of all
-   * transaction outputs from sum of all inputs.
-   */
-  public function getTxFee($txid) {
-
-    $res = $this->getrawtransaction($txid, true);
-
-    for ($i = 0; $i < $this->getTxCountInOut($txid, "vin"); $i++) {
-      $txVinAmount += $this->getTxVinAmount($res["vin"][$i]["txid"], $res["vin"][$i]["vout"]) * 100000000;
-    }
-
-    $txAmount = $this->getTxSum($txid, "vout") * 100000000;
-
-    return $txVinAmount - $txAmount;
   }
 
 }
