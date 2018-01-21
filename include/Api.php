@@ -785,7 +785,7 @@ class Api {
   public function pruneblockchain($height = 0) {
 
     $args = $this->args;
-    $args["method"] = "pruneblockchain";
+    $args["method"] = __FUNCTION__;
     $args["params"] = [$height];
 
     $res = $this->call($args);
