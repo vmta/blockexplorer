@@ -906,7 +906,7 @@ class Api {
   public function stop() {
 
     $args = $this->args;
-    $args["method"] = "stop";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
