@@ -1505,7 +1505,7 @@ class Api {
   public function getpeerinfo() {
 
     $args = $this->args;
-    $args["method"] = "getpeerinfo";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -1530,7 +1530,7 @@ class Api {
   public function listbanned() {
 
     $args = $this->args;
-    $args["method"] = "listbanned";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -1550,7 +1550,7 @@ class Api {
   public function ping() {
 
     $args = $this->args;
-    $args["method"] = "ping";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -1586,7 +1586,7 @@ class Api {
   public function setban($subnet, $cmd = "add", $bantime = 86400, $absolute = 0) {
 
     $args = $this->args;
-    $args["method"] = "setban";
+    $args["method"] = __FUNCTION__;
     if (!empty($absolute))
       $args["params"] = ["$subnet", "$cmd", $absolute];
     else
@@ -1616,7 +1616,7 @@ class Api {
   public function setnetworkactive($flag = true) {
 
     $args = $this->args;
-    $args["method"] = "setnetworkactive";
+    $args["method"] = __FUNCTION__;
     $args["params"] = [$flag];
 
     $res = $this->call($args);
@@ -1631,14 +1631,28 @@ class Api {
 
 
   /* 45
-   *
-   * Returns
+   * combinerawtransaction ["hexstring",...]
+   * 
+   * Combine multiple partially signed transactions into one transaction.
+   * The combined transaction may be another partially signed transaction or a
+   * fully signed transaction.
+   * 
+   * Arguments:
+   * 1. "txs"         (string) A json array of hex strings of partially signed transactions
+   *     [
+   *       "hexstring" (string) A transaction hash
+   *       ,...
+   *     ]
+   * 
+   * Result:
+   * "hex"            (string) The hex-encoded raw transaction with signature(s)
    *
    */
   public function combinerawtransaction($hexstring) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
+    $args["params"] = $hexstring;
 
     $res = $this->call($args);
     if ($res)
@@ -1681,15 +1695,14 @@ class Api {
    *
    */
   public function createrawtransaction() {
-
+    // @TODO
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
+    $args["params"] = [];
 
     $res = $this->call($args);
     if ($res)
-      // @TODO
-      //return $res['result'];
-      return false;
+      return $res['result'];
   }
 
 
@@ -1765,7 +1778,7 @@ class Api {
   public function decoderawtransaction($hexstring) {
 
     $args = $this->args;
-    $args["method"] = "decoderawtransaction";
+    $args["method"] = __FUNCTION__;
     $args["params"] = ["$hexstring"];
 
     $res = $this->call($args);
@@ -1775,14 +1788,32 @@ class Api {
 
 
   /* 48
-   *
-   * Returns
+   * decodescript "hexstring"
+   * 
+   * Decode a hex-encoded script.
+   * 
+   * Arguments:
+   * 1. "hexstring"     (string) the hex encoded script
+   * 
+   * Result:
+   * {
+   *   "asm":"asm",   (string) Script public key
+   *   "hex":"hex",   (string) hex encoded public key
+   *   "type":"type", (string) The output type
+   *   "reqSigs": n,    (numeric) The required signatures
+   *   "addresses": [   (json array of string)
+   *      "address"     (string) umkoin address
+   *      ,...
+   *   ],
+   *   "p2sh","address" (string) address of P2SH script wrapping this redeem script (not returned if the script is already a P2SH).
+   * }
    *
    */
   public function decodescript($hexstring) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
+    $args["params"] = ["$hexstring"];
 
     $res = $this->call($args);
     if ($res)
@@ -1798,7 +1829,7 @@ class Api {
   public function fundrawtransaction($hexstring, $options) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -1876,7 +1907,7 @@ class Api {
       $params_array[] = "$blockhash";
 
     $args = $this->args;
-    $args["method"] = "getrawtransaction";
+    $args["method"] = __FUNCTION__;
     $args["params"] = $params_array;
 
     $res = $this->call($args);
@@ -1893,7 +1924,7 @@ class Api {
   public function sendrawtransaction($hexstring, $allowhighfees) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -1909,7 +1940,7 @@ class Api {
   public function signrawtransaction() {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -1931,7 +1962,7 @@ class Api {
   public function createmultisig($nrequired, $key) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -1947,7 +1978,7 @@ class Api {
   public function estimatesmartfee($nblocks = 0) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -1963,7 +1994,7 @@ class Api {
   public function signmessagewithprivkey($privkey, $message) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -1979,7 +2010,7 @@ class Api {
   public function validateaddress($address) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -1995,7 +2026,7 @@ class Api {
   public function verifymessage($address, $signature, $message) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2016,7 +2047,7 @@ class Api {
   public function abandontransaction($txid) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2032,7 +2063,7 @@ class Api {
   public function abortscan() {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2048,7 +2079,7 @@ class Api {
   public function addmultisigaddress($nrequired, $key, $account) {
     
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2064,7 +2095,7 @@ class Api {
   public function addwithnessaddress($address) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2080,7 +2111,7 @@ class Api {
   public function backupwallet($destination) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2096,7 +2127,7 @@ class Api {
   public function bumpfee($txid, $options) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2112,7 +2143,7 @@ class Api {
   public function dumpprivkey($address) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2128,7 +2159,7 @@ class Api {
   public function dumpwallet($filename) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2159,7 +2190,7 @@ class Api {
   public function encryptwallet($passphrase) {
 
     $args = $this->args;
-    $args["method"] = "encryptwallet";
+    $args["method"] = __FUNCTION__;
     $args["params"] = ["$passphrase"];
 
     $res = $this->call($args);
@@ -2187,7 +2218,7 @@ class Api {
   public function getaccount($address) {
 
     $args = $this->args;
-    $args["method"] = "getaccount";
+    $args["method"] = __FUNCTION__;
     $args["params"] = ["$address"];
 
     $res = $this->call($args);
@@ -2213,7 +2244,7 @@ class Api {
   public function getaccountaddress($account) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2229,7 +2260,7 @@ class Api {
   public function getaddressbyaccount($account) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2246,7 +2277,7 @@ class Api {
 
     // $include_watchonly may be one of true|false
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2262,7 +2293,7 @@ class Api {
   public function getnewaddress($account) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2278,7 +2309,7 @@ class Api {
   public function getrawchangeaddress() {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2294,7 +2325,7 @@ class Api {
   public function getreceivedbyaccount($account, $minconf = 0) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2310,7 +2341,7 @@ class Api {
   public function getreceivedbyaddress($address, $minconf = 0) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2364,7 +2395,7 @@ class Api {
   public function gettransaction($txid, $include_watchonly = false) {
 
     $args = $this->args;
-    $args["method"] = "gettransaction";
+    $args["method"] = __FUNCTION__;
     $args["params"] = ["$txid", $include_watchonly];
 
     $res = $this->call($args);
@@ -2381,7 +2412,7 @@ class Api {
   public function getunconfirmedbalance() {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2397,7 +2428,7 @@ class Api {
   public function getwalletinfo() {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2413,7 +2444,7 @@ class Api {
   public function importaddress($address, $label, $rescan, $p2sh) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2441,7 +2472,7 @@ class Api {
   public function importmulti($requests, $options = []) {
 
     $args = $this->args;
-    $args["method"] = "importmulti";
+    $args["method"] = __FUNCTION__;
     if(!empty($options))
       $args["params"] = [$requests, $options];
     else
@@ -2461,7 +2492,7 @@ class Api {
   public function importprivkey($privkey, $label, $rescan) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2477,7 +2508,7 @@ class Api {
   public function importprunedfunds() {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2493,7 +2524,7 @@ class Api {
   public function importpubkey($pubkey, $label, $rescan) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2509,7 +2540,7 @@ class Api {
   public function importwallet($filename) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2525,7 +2556,7 @@ class Api {
   public function keypoolrefill($newsize) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2553,7 +2584,7 @@ class Api {
   public function listaccounts($minconf = 0, $include_watchonly = true) {
 
     $args = $this->args;
-    $args["method"] = "listaccounts";
+    $args["method"] = __FUNCTION__;
     $args["params"] = [$minconf, $include_watchonly];
 
     $res = $this->call($args);
@@ -2593,7 +2624,7 @@ class Api {
   public function listaddressgroupings() {
 
     $args = $this->args;
-    $args["method"] = "listaddressgroupings";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2624,7 +2655,7 @@ class Api {
   public function listlockunspent() {
 
     $args = $this->args;
-    $args["method"] = "listlockunspent";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2640,7 +2671,7 @@ class Api {
   public function listreceivedbyaccount($minconf = 0, $include_empty, $include_watchonly) {
     
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2656,7 +2687,7 @@ class Api {
   public function listreceivedbyaddress($minconf = 0, $include_empty, $include_watchonly) {
     
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2672,7 +2703,7 @@ class Api {
   public function listsinceblock($blockhash, $target_confirmations, $include_watchonly, $include_removed) {
     
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2691,7 +2722,7 @@ class Api {
     // $skip is of type int
     // $include_watchonly may be one of true|false
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2708,7 +2739,7 @@ class Api {
   public function listunspent($minconf = 0, $maxconf = 100, $addresses, $include_unsafe, $query_options) {
     
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2724,7 +2755,7 @@ class Api {
   public function listwallets() {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2740,7 +2771,7 @@ class Api {
   public function lockunspent($unlock, $txid) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2756,7 +2787,7 @@ class Api {
   public function move($fromaccount, $toaccount, $minconf = 0, $comment) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2772,7 +2803,7 @@ class Api {
   public function removeprunedfunds($txid) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2788,7 +2819,7 @@ class Api {
   public function sendfrom($fromaccount, $toaddress, $amount, $minconf = 0, $comment, $comment_to) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2804,7 +2835,7 @@ class Api {
   public function sendmany($fromaccount, $address, $amount, $minconf = 0, $comment, $replaceable, $conf_target, $estimate_mode) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
@@ -2813,15 +2844,55 @@ class Api {
 
 
   /* 99
-   *
-   * Returns
+   * sendtoaddress "address" amount ( "comment" "comment_to" subtractfeefromamount replaceable conf_target "estimate_mode")
+   * 
+   * Send an amount to a given address.
+   * 
+   * Arguments:
+   * 1. "address"       (string, required) The umkoin address to send to.
+   * 2. "amount"        (numeric or string, required) The amount in UMK to send. eg 0.1
+   * 3. "comment"       (string, optional) A comment used to store what the transaction is for.
+   *                    This is not part of the transaction, just kept in your wallet.
+   * 4. "comment_to"    (string, optional) A comment to store the name of the person or organization
+   *                    to which you're sending the transaction. This is not part of the
+   *                    transaction, just kept in your wallet.
+   * 5. subtractfeefromamount  (boolean, optional, default=false) The fee will be deducted from the amount being sent.
+   *                    The recipient will receive less umkoins than you enter in the amount field.
+   * 6. replaceable     (boolean, optional) Allow this transaction to be replaced by a transaction with higher fees via BIP 125
+   * 7. conf_target     (numeric, optional) Confirmation target (in blocks)
+   * 8. "estimate_mode" (string, optional, default=UNSET) The fee estimate mode, must be one of:
+   *        "UNSET"
+   *        "ECONOMICAL"
+   *        "CONSERVATIVE"
+   * 
+   * Result:
+   * "txid"             (string) The transaction id.
    *
    */
   public function sendtoaddress($address, $amount, $comment, $comment_to, $subtractfeefromamount, $replaceable, $conf_target, $estimate_mode) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
+    $args["params"] = ["$address", $amount];
 
+    if(isset($comment) && !empty($comment))
+      $args["params"][] = "$comment";
+
+    if(isset($comment_to) && !empty($comment_to))
+      $args["params"][] = "$comment_to";
+
+    if(isset($subtractfeefromamount))
+      $args["params"][] = $subtractfeefromamount;
+
+    if(isset($replaceable))
+      $args["params"][] = $replaceable;
+    
+    if(isset($conf_target) && !empty($conf_target))
+      $args["params"][] = $conf_target;
+
+    if(isset($estimate_mode) && !empty($estimate_mode))
+      $args["params"][] = "$estimate_mode";
+    
     $res = $this->call($args);
     if ($res)
       return $res['result'];
@@ -2841,7 +2912,7 @@ class Api {
   public function setaccount($address, $account) {
 
     $args = $this->args;
-    $args["method"] = "setaccount";
+    $args["method"] = __FUNCTION__;
     $args["params"] = ["$address", "$account"];
 
     $res = $this->call($args);
@@ -2858,7 +2929,7 @@ class Api {
   public function signmessage($address, $message) {
 
     $args = $this->args;
-    $args["method"] = "";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
