@@ -1127,12 +1127,31 @@ class Api {
 
 
   /* 31
+   * prioritisetransaction <txid> <dummy value> <fee delta>
+   * 
+   * Accepts the transaction into mined blocks at a higher (or lower) priority
+   * 
+   * Arguments:
+   * 1. "txid"    (string, required) The transaction id.
+   * 2. dummy     (numeric, optional) API-Compatibility for previous API. Must be zero or null.
+   *              DEPRECATED. For forward compatibility use named arguments and omit this parameter.
+   * 3. fee_delta (numeric, required) The fee value (in satoshis) to add (or subtract, if negative).
+   *              The fee is not actually paid, only the algorithm for selecting transactions into a block
+   *              considers the transaction as it would have paid a higher (or lower) fee.
    *
-   * Returns
+   * Result:
+   * true         (boolean) Returns true
    *
    */
-  public function prioritisetransaction($txid, $dummyvalue, $feedelta) {
+  public function prioritisetransaction($txid, $dummyvalue = 0, $feedelta) {
+
     $args = $this->args;
+    $args["method"] = __FUNCTION__;
+    $args["params"] = [ "$txid", $dummyvalue, $feedelta ];
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
