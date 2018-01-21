@@ -1441,7 +1441,7 @@ class Api {
   public function getnetworkinfo() {
 
     $args = $this->args;
-    $args["method"] = "getnetworkinfo";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
