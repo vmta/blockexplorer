@@ -745,12 +745,24 @@ class Api {
 
 
   /* 18
-   *
-   * Returns
+   * preciousblock "blockhash"
+   * 
+   * Treats a block as if it were received before others with the same work.
+   * A later preciousblock call can override the effect of an earlier one.
+   * The effects of preciousblock are not retained across restarts.
+   * 
+   * Arguments:
+   * 1. "blockhash"   (string, required) the hash of the block to mark as precious
    *
    */
   public function preciousblock($hash) {
+
     $args = $this->args;
+    $args["method"] = __FUNCTION__;
+
+    $res = $this->call($args);
+    if ($res)
+      return $res['result'];
   }
 
 
