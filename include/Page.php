@@ -214,8 +214,10 @@ class Page {
       }
     } else {
       for ($i = 0; $i < $this->block->getTxCountInOut($hash, $flag); $i++) {
-        for ($j = 0; $j < count($res[$flag][$i]["scriptPubKey"]["addresses"]); $j++) {
-          $addresses_str = "<div>" . $res[$flag][$i]["scriptPubKey"]["addresses"][$j] . "</div>";
+        if (isset($res[$flag][$i]["scriptPubKey"]["addresses"])) {
+          for ($j = 0; $j < count($res[$flag][$i]["scriptPubKey"]["addresses"]); $j++) {
+            $addresses_str = "<div>" . $res[$flag][$i]["scriptPubKey"]["addresses"][$j] . "</div>";
+          }
         }
         $str .= "<tr>" .
                 "<td>" . $res[$flag][$i]["value"] . " UMK</td>" .
