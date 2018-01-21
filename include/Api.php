@@ -1117,7 +1117,7 @@ class Api {
   public function getnetworkhashps($height = 0) {
 
     $args = $this->args;
-    $args["method"] = "getnetworkhashps";
+    $args["method"] = __FUNCTION__;
     $args["params"] = [$height];
 
     $res = $this->call($args);
