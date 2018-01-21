@@ -1204,10 +1204,9 @@ class Api {
    *
    */
   public function addnode($node, $cmd = "onetry") {
-    // $cmd may be one of add|remove|onetry
 
     $args = $this->args;
-    $args["method"] = "addnode";
+    $args["method"] = __FUNCTION__;
     $args["params"] = [ "$node", "$cmd" ];
 
     $res = $this->call($args);
