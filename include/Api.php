@@ -1380,7 +1380,7 @@ class Api {
   public function getnettotals() {
 
     $args = $this->args;
-    $args["method"] = "getnettotals";
+    $args["method"] = __FUNCTION__;
 
     $res = $this->call($args);
     if ($res)
