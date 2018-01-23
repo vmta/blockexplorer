@@ -267,16 +267,16 @@ class Page {
                 "<i class='fa fa-cubes' aria-hidden='true'></i> Block Explorer" .
               "</a>" .
             "</li>" .
-            "<li>" .
-              "<a class='hot_link' data-page='pools.php' href='#pools'>" .
-                "<i class='fa fa-gavel' aria-hidden='true'></i> Pools" .
-              "</a>" .
-            "</li>" .
-            "<li>" .
-              "<a class='hot_link' data-page='api.php' href='#api'>" .
-                "<i class='fa fa-code' aria-hidden='true'></i> API" .
-              "</a>" .
-            "</li>" .
+//            "<li>" .
+//              "<a class='hot_link' data-page='pools.php' href='#pools'>" .
+//                "<i class='fa fa-gavel' aria-hidden='true'></i> Pools" .
+//              "</a>" .
+//            "</li>" .
+//            "<li>" .
+//              "<a class='hot_link' data-page='api.php' href='#api'>" .
+//                "<i class='fa fa-code' aria-hidden='true'></i> API" .
+//              "</a>" .
+//            "</li>" .
             "<li style='display:none;'>" .
               "<a class='hot_link' data-page='blockchain_block.php' href='#blockchain_block'>" .
                 "<i class='fa fa-cubes'></i> Block" .
