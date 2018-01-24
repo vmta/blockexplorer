@@ -1836,7 +1836,7 @@ class Api {
    * Only pay-to-pubkey, multisig, and P2SH versions thereof are currently supported for watch-only
 
    * Arguments:
-   * 1. "hexstring"           (string, required) The hex string of the raw transaction
+   * 1. "hexstring"             (string, required) The hex string of the raw transaction
    * 2. options                 (object, optional)
    *   {
    *     "changeAddress"          (string, optional, default pool address) The umkoin address to receive the change
@@ -1874,6 +1874,9 @@ class Api {
 
     $args = $this->args;
     $args["method"] = __FUNCTION__;
+    $args["patams"] = ["$hexstring"];
+    if (!empty($options))
+      $args["params"][] = $options;
 
     $res = $this->call($args);
     if ($res)
