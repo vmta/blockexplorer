@@ -742,9 +742,9 @@ class Page {
             "<p>" .
               "<small>" .
                 "Powered by <a target='_blank' href='https://github.com/vmta/blockexplorer'><i class='fa fa-github'></i> Block Explorer</a>" .
-                "<br />" .
-                "<span class='text-muted'>Partially based on <strong>cryptonote-universal-pool</strong><br />" .
-                "open sourced under the <a href='http://www.gnu.org/licenses/gpl-2.0.html'>GPL</a></span>" .
+//                "<br />" .
+//                "<span class='text-muted'>Partially based on <strong>cryptonote-universal-pool</strong><br />" .
+//                "open sourced under the <a href='http://www.gnu.org/licenses/gpl-2.0.html'>GPL</a></span>" .
               "</small>" .
             "</p>" .
           "</div>" .
