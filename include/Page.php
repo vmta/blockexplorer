@@ -14,7 +14,6 @@
  *
  * Changelog:
  *
- * @TODO Unify DATE (use either gmdate() or date())
  */
 
 
@@ -277,26 +276,26 @@ class Page {
 //                "<i class='fa fa-code' aria-hidden='true'></i> API" .
 //              "</a>" .
 //            "</li>" .
-            "<li style='display:none;'>" .
-              "<a class='hot_link' data-page='blockchain_block.php' href='#blockchain_block'>" .
-                "<i class='fa fa-cubes'></i> Block" .
-              "</a>" .
-            "</li>" .
-            "<li style='display:none;'>" .
-              "<a class='hot_link' data-page='blockchain_transaction.php' href='#blockchain_transaction'>" .
-                "<i class='fa fa-cubes'></i> Transaction" .
-              "</a>" .
-            "</li>" .
-            "<li style='display:none;'>" .
-              "<a class='hot_link' data-page='blockchain_payment_id.php' href='#blockchain_payment_id'>" .
-                "<i class='fa fa-cubes'></i> Transactions by Payment ID" .
-              "</a>" .
-            "</li>" .
-            "<!--<li>" .
-              "<a style='display:none;' class='hot_link' data-page='support.php' href='#support'>" .
-                "<i class='fa fa-comments'></i> Help" .
-              "</a>" .
-            "</li>//-->" .
+//            "<li style='display:none;'>" .
+//              "<a class='hot_link' data-page='blockchain_block.php' href='#blockchain_block'>" .
+//                "<i class='fa fa-cubes'></i> Block" .
+//              "</a>" .
+//            "</li>" .
+//            "<li style='display:none;'>" .
+//              "<a class='hot_link' data-page='blockchain_transaction.php' href='#blockchain_transaction'>" .
+//                "<i class='fa fa-cubes'></i> Transaction" .
+//              "</a>" .
+//            "</li>" .
+//            "<li style='display:none;'>" .
+//              "<a class='hot_link' data-page='blockchain_payment_id.php' href='#blockchain_payment_id'>" .
+//                "<i class='fa fa-cubes'></i> Transactions by Payment ID" .
+//              "</a>" .
+//            "</li>" .
+//            "<!--<li>" .
+//              "<a style='display:none;' class='hot_link' data-page='support.php' href='#support'>" .
+//                "<i class='fa fa-comments'></i> Help" .
+//              "</a>" .
+//            "</li>//-->" .
           "</ul>" .
           "<div class='nav col-md-6 navbar-right explorer-search'>" .
             "<div class='input-group'>" .
@@ -619,24 +618,24 @@ class Page {
                     "</div>" .
                   "</div>" .
 
-                  "<div class='col-sm-6 col-md-6'>" .
-                    "<div class='panel panel-default'>" .
-                      "<div class='panel-heading'>" .
-
-                        "<h3 class='panel-title'><i class='fa fa-area-chart' aria-hidden='true'></i> Charts" .
-                          "<span class='text-default' data-toggle='tooltip' data-placement='right' data-original-title='Difficulty based on last blocks from the list below. Block size, transactions count. Load more blocks to enlarge chart range.'>" .
-                          "<i class='fa fa-question-circle'></i></span>" .
-                        "</h3>" .
-
-                      "</div>" .
-                      "<div class='panel-body chart-wrapper'>" .
-
-                        "<canvas id='difficultyChart' height='210'></canvas>" .
-
-                      "</div>" .
-                    "</div>" .
-                  "</div>" .
-                "</div>" .
+//                  "<div class='col-sm-6 col-md-6'>" .
+//                    "<div class='panel panel-default'>" .
+//                      "<div class='panel-heading'>" .
+//
+//                        "<h3 class='panel-title'><i class='fa fa-area-chart' aria-hidden='true'></i> Charts" .
+//                          "<span class='text-default' data-toggle='tooltip' data-placement='right' data-original-title='Difficulty based on last blocks from the list below. Block size, transactions count. Load more blocks to enlarge chart range.'>" .
+//                          "<i class='fa fa-question-circle'></i></span>" .
+//                        "</h3>" .
+//
+//                      "</div>" .
+//                      "<div class='panel-body chart-wrapper'>" .
+//
+//                        "<canvas id='difficultyChart' height='210'></canvas>" .
+//
+//                      "</div>" .
+//                    "</div>" .
+//                  "</div>" .
+//                "</div>" .
 
                 "<div class='panel panel-default'>" .
                   "<div class='panel-heading'>" .
@@ -668,7 +667,6 @@ class Page {
                       "</table>" .
                     "</div>" .
                   "</div>" .
-
                 "</div>" .
               "</div>" .
 
