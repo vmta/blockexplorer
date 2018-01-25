@@ -2135,14 +2135,24 @@ class Api {
 
 
   /* 57
+   * verifymessage "address" "signature" "message"
+   * 
+   * Verify a signed message
    *
-   * Returns
+   * Arguments:
+   * 1. "address"         (string, required) The umkoin address to use for the signature.
+   * 2. "signature"       (string, required) The signature provided by the signer in base 64 encoding (see signmessage).
+   * 3. "message"         (string, required) The message that was signed.
+   *
+   * Result:
+   * true|false   (boolean) If the signature is verified or not.
    *
    */
   public function verifymessage($address, $signature, $message) {
 
     $args = $this->args;
     $args["method"] = __FUNCTION__;
+    $args["params"] = ["$address", "$signature", "$message"];
 
     $res = $this->call($args);
     if ($res)
