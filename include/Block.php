@@ -23,8 +23,8 @@
 
 class Block extends Api {
 
-  public function __construct($server, $auth) {
-    parent::__construct($server, $auth);
+  public function __construct($server, $auth, $debug = false) {
+    parent::__construct($server, $auth, $debug);
   }
 
 

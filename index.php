@@ -32,8 +32,12 @@ $server = "$proto://$host:$port";
 $auth = "$rpcuser:$rpcpass";
 
 
+/* Check if debug is of correct type (boolean) */
+(is_bool($debug) === true) ? $debug : false;
+
+
 /* Create a Block object */
-$block = new Block($server, $auth);
+$block = new Block($server, $auth, $debug);
 
 
 /* Create a Page object */

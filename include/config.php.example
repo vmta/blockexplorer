@@ -26,4 +26,13 @@ $rpcpass = "rpcpass";
 $breward = 5000000000;
 $halving = 210000;
 
+/*
+ * Debug
+ *
+ * $debug - (bolean) specify whether debugging shall be enabled or not. It
+ *          is disabled if unset or omitted.
+ *
+ */
+ $debug = false;
+
 ?>
