@@ -2510,14 +2510,25 @@ class Api {
 
 
   /* 71
+   * getnewaddress ( "account" )
    *
-   * Returns
+   * Creates new address within the specified account.
+   * 
+   * Arguments:
+   * 1. "account"        (string, optional) The account name within which new
+   *                     address will be created. It could be set to empty
+   *                     string "" to create new address within the default
+   *                     account.
+   * 
+   * Result:
+   * "address"           (string) New umkoin address.
    *
    */
-  public function getnewaddress($account) {
+  public function getnewaddress($account = "") {
 
     $args = $this->args;
     $args["method"] = __FUNCTION__;
+    $args["params"] = ["$account"];
 
     $res = $this->call($args);
     if ($res)
