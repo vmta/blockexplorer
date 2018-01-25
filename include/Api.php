@@ -2466,15 +2466,15 @@ class Api {
    * Returns
    *
    */
-  public function getaddressbyaccount($account) {
+  //public function getaddressbyaccount($account) {
 
-    $args = $this->args;
-    $args["method"] = __FUNCTION__;
+  //  $args = $this->args;
+  //  $args["method"] = __FUNCTION__;
 
-    $res = $this->call($args);
-    if ($res)
-      return $res['result'];
-  }
+  //  $res = $this->call($args);
+  //  if ($res)
+  //    return $res['result'];
+  //}
 
 
   /* 70
