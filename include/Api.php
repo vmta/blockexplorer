@@ -2478,15 +2478,30 @@ class Api {
 
 
   /* 70
+   * getbalance ("account") (minconf) (include_watchonly)
    *
-   * Returns
+   * Returns total amount of available coins.
+   *
+   * Arguments:
+   * 1. "account"          (string, optional) The account name for which the
+   *                       balance will be displayed. It could be set to empty
+   *                       string "" to represent the balance for default
+   *                       account.
+   * 2. minconf            (numeric, optional) Display spendable balance with
+   *                       a minimum number of confirmations. Set to zero to
+   *                       retrieve grand total for balance, including
+   *                       unconfirmed transactions.
+   * 3. include_watchonly  (boolean, optional)
+   *
+   * Result:
+   * x.xx                  (numeric) The corresponding amount.
    *
    */
-  public function getbalance($account, $minconf = 0, $include_watchonly) {
+  public function getbalance($account = "", $minconf = 1, $include_watchonly = true) {
 
-    // $include_watchonly may be one of true|false
     $args = $this->args;
     $args["method"] = __FUNCTION__;
+    $args["params"] = ["$account", $minconf, $include_watchonly]
 
     $res = $this->call($args);
     if ($res)
