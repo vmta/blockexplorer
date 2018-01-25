@@ -2501,7 +2501,7 @@ class Api {
 
     $args = $this->args;
     $args["method"] = __FUNCTION__;
-    $args["params"] = ["$account", $minconf, $include_watchonly]
+    $args["params"] = ["$account", $minconf, $include_watchonly];
 
     $res = $this->call($args);
     if ($res)
