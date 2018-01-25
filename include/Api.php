@@ -2435,22 +2435,25 @@ class Api {
 
   /* 68
    * getaccountaddress "account"
-   * 
-   * DEPRECATED. Returns the current Umkoin address for receiving payments to this account.
-   * 
-     Input:
-     {
-       "params": "account"
-     }
-
-     Output:
-
+   *
+   * DEPRECATED. Returns the current Umkoin address for receiving payments to
+   * this account.
+   *
+   * Arguments:
+   * 1. "account" (string, required) The account name for the address. It can
+   * also be set to the empty string "" to represent the default account. The
+   * account does not need to exist, it will be created and a new address
+   * created if there is no account by the given name.
+   *
+   * Result:
+   * "address"    (string) The account umkoin address
    *
    */
   public function getaccountaddress($account) {
 
     $args = $this->args;
     $args["method"] = __FUNCTION__;
+    $args["params"] = ["$account"];
 
     $res = $this->call($args);
     if ($res)
