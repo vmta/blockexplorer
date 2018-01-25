@@ -2166,14 +2166,25 @@ class Api {
 
 
   /* 58
+   * abandontransaction "txid"
    *
-   * Returns
+   * Mark in-wallet transaction <txid> as abandoned
+   * This will mark this transaction and all its in-wallet descendants as abandoned which will allow
+   * for their inputs to be respent.  It can be used to replace "stuck" or evicted transactions.
+   * It only works on transactions which are not included in a block and are not currently in the mempool.
+   * It has no effect on transactions which are already conflicted or abandoned.
+   *
+   * Arguments:
+   * 1. "txid"    (string, required) The transaction id
+   *
+   * Result:
    *
    */
   public function abandontransaction($txid) {
 
     $args = $this->args;
     $args["method"] = __FUNCTION__;
+    $args["params"] = ["$txid"];
 
     $res = $this->call($args);
     if ($res)
@@ -2230,14 +2241,19 @@ class Api {
 
 
   /* 62
+   * backupwallet "destination"
    *
-   * Returns
+   * Safely copies current wallet file to destination, which can be a directory or a path with filename.
+   *
+   * Arguments:
+   * 1. "destination"   (string) The destination directory or file
    *
    */
   public function backupwallet($destination) {
 
     $args = $this->args;
     $args["method"] = __FUNCTION__;
+    $args["params"] = ["$destination"];
 
     $res = $this->call($args);
     if ($res)
