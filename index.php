@@ -76,31 +76,31 @@ $html_content = "";
 
 
 /* Add Navigation bar to HTML Content Holder */
-$html_content .= $p->get_navbar();
+$html_content .= $p->getNavigationBar();
 
 
 /* Add Page Content based on Request to HTML Content Holder */
 if (isset($_GET['blockhash'])) {
 
-  $html_content .= $p->get_content('blockhash', $_GET['blockhash']);
+  $html_content .= $p->getContent('blockhash', $_GET['blockhash']);
 
 } elseif (isset($_GET['txid'])) {
 
-  $html_content .= $p->get_content('txid', $_GET['txid']);
+  $html_content .= $p->getContent('txid', $_GET['txid']);
 
 } elseif (isset($_GET['search'])) {
 
-  $html_content .= $p->get_content('search', $_GET['search']);
+  $html_content .= $p->getContent('search', $_GET['search']);
 
 } else {
 
-  $html_content .= $p->get_content('default', '');
+  $html_content .= $p->getContent('default', '');
 
 }
 
 
 /* Add Footer to HTML Content Holder */
-$html_content .= $p->get_footer();
+$html_content .= $p->getFooter();
 
 
 /* Display HTML Content */
