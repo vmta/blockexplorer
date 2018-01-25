@@ -148,7 +148,7 @@ class Page {
 
 
   /* Construct, populate and return a list of blocks */
-  public function getblockslist() {
+  public function displayBlockList() {
 
     $blocks = [];
     $blockchain_length = $this->block->getblockcount();
@@ -370,6 +370,13 @@ class Page {
               "</div>" .
             "</div>" .
           "</div>";
+
+          break;
+        
+        case "blockheight":
+
+          $blockHash = $this->block->getblockhash($reqval);
+          $this->html_content_string = $this->getContent("blockhash", $blockHash);
 
           break;
 
@@ -681,7 +688,7 @@ class Page {
                         "<a id='prev-page' href='#' class='btn btn-default input-group-addon'><i class='fa fa-arrow-left' aria-hidden='true'></i> Older</a>" .
                         "<span class='input-group-addon'>№</span>" .
                         "<input id='goto-height' type='text' class='form-control' placeholder='Height'>" .
-                        "<a id='goto-height-go' href='#' class='btn btn-default input-group-addon'>Go</a>" .
+                        "<span id='goto-height-go' class='btn btn-default input-group-addon'>Go</span>" .
                         "<a id='next-page' href='#' class='btn btn-default input-group-addon disabled'>Newer <i class='fa fa-arrow-right' aria-hidden='true'></i></a>" .
                       "</div>" .
                     "</div>" .
@@ -699,18 +706,20 @@ class Page {
                     "</tr>" .
                     "</thead>" .
                     "<tbody id='blocks_rows'>" .
-                      $this->getblockslist() .
+                      $this->displayBlockList() .
                     "</tbody>" .
                     "</table>" .
                   "</div>" .
-                  "<p class='text-center'>" .
-                    "<button type='button' class='btn btn-default' id='loadMoreBlocks'>Load More</button>" .
-                  "</p>" .
                 "</div>" .
               "</div>" .
             "</div>" .
            "</div>" .
-          "</div>";
+          "</div>" .
+          "<script>" .
+          "document.getElementById('goto-height-go').onclick = function () {" .
+          "window.location.href = '/?blockheight='.concat(document.getElementById('goto-height').valuedocument.getElementById('goto-height').value);" .
+          "}" .
+          "</script>";
 
           break;
 
