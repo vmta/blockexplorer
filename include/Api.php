@@ -2313,7 +2313,7 @@ class Api {
     $args["method"] = __FUNCTION__;
     $args["params"] = ["$txid"];
     if (!empty($options))
-      $args["params"[] = $options;
+      $args["params"][] = $options;
 
     $res = $this->call($args);
     if ($res)
