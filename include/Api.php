@@ -2322,14 +2322,23 @@ class Api {
 
 
   /* 64
+   * dumpprivkey "address"
    *
-   * Returns
+   * Reveals the private key corresponding to 'address'.
+   * Then the importprivkey can be used with this output
+   *
+   * Arguments:
+   * 1. "address"   (string, required) The umkoin address for the private key
+   *
+   * Result:
+   * "key"                (string) The private key
    *
    */
   public function dumpprivkey($address) {
 
     $args = $this->args;
     $args["method"] = __FUNCTION__;
+    $args["params"] = ["$address"];
 
     $res = $this->call($args);
     if ($res)
