@@ -372,11 +372,11 @@ class Page {
           "</div>";
 
           break;
-        
+
         case "blockheight":
 
-          $blockHash = $this->block->getblockhash($reqval);
-          $this->html_content_string = $this->getContent("blockhash", $blockHash);
+          $blockhash = $this->block->getblockhash(intval($reqval));
+          $this->getContent("blockhash", $blockhash);
 
           break;
 
@@ -717,8 +717,8 @@ class Page {
           "</div>" .
           "<script>" .
           "document.getElementById('goto-height-go').onclick = function () {" .
-          "window.location.href = '/?blockheight='.concat(document.getElementById('goto-height').valuedocument.getElementById('goto-height').value);" .
-          "}" .
+          "window.location.href = 'http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?blockheight='.concat(document.getElementById('goto-height').value);" .
+          "};" .
           "</script>";
 
           break;

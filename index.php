@@ -84,6 +84,10 @@ if (isset($_GET['blockhash'])) {
 
   $html_content .= $p->getContent('blockhash', $_GET['blockhash']);
 
+} elseif (isset($_GET['blockheight'])) {
+
+  $html_content .= $p->getContent('blockheight', $_GET['blockheight']);
+
 } elseif (isset($_GET['txid'])) {
 
   $html_content .= $p->getContent('txid', $_GET['txid']);
