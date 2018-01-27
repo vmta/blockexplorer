@@ -10,11 +10,15 @@
  *
  * Version_Major: 0
  * Version_Minor: 0
- * Version_Build: 1
+ * Version_Build: 2
  *
  * Changelog:
  *
- * v0.0.1
+ * v0.0.2 (2018-01-27)
+ * Update getTxCount(). Use parent getchaintxstats() instead
+ * of gettxoutsetinfo().
+ *
+ * v0.0.1 (2018-01-14)
  * Initial code
  *
  */
@@ -117,9 +121,9 @@ class Block extends Api {
   /*
    * Returns difficulty of the block by its hash.
    */
-  public function getblockdifficulty($hash) {
+  public function getBlockDifficulty($blockhash) {
 
-    $res = $this->getblock($hash);
+    $res = $this->getblock($blockhash);
     if ($res)
       return $res["difficulty"];
   }
@@ -128,19 +132,16 @@ class Block extends Api {
   /*
    * Returns cumulative fee amount for the given block.
    */
-  public function getblockfees($hash, $flag = 'hash') {
+  public function getBlockFee($blockhash, $flag = 'hash') {
 
     if ($flag != 'hash') {
-      $hash = $this->getblockhash($hash);
+      $blockhash = $this->getblockhash($blockhash);
     }
 
     $fees = 0;
-    $txids = $this->getblock($hash)["tx"];
+    $txids = $this->getblock($blockhash)["tx"];
 
     for ($i = 0; $i < count($txids); $i++) {
-//      $txid = $this->gettransaction($txids[$i]);
-//      if (isset($txid["fee"]))
-//        $fees += abs($txid["fee"]);
       $fees += $this->getTxFee($txids[$i]);
     }
 
@@ -179,9 +180,9 @@ class Block extends Api {
  /*
   * Returns size of the block by its hash.
   */
-  public function getblocksize($hash) {
+  public function getBlockSize($blockhash) {
 
-    $res = $this->getblock($hash);
+    $res = $this->getblock($blockhash);
     if($res)
       return $res["size"];
   }
@@ -305,7 +306,7 @@ class Block extends Api {
    * Returns unconfirmed transactions count in mempool
    * based on the original getmempoolinfo set of data.
    */
-  public function getmempoolinfosize() {
+  public function getUnconfirmedTxCount() {
 
     $res = $this->getmempoolinfo();
     if ($res)
@@ -445,14 +446,14 @@ class Block extends Api {
 
   /*
    * Returns transactions count based on the original
-   * gettxoutsetinfo set of data by extracting
-   * 'transactions' field.
+   * getchaintxstats set of data by extracting
+   * 'txcount' field.
    */
   public function getTxCount() {
 
-    $res = $this->gettxoutsetinfo();
+    $res = $this->getchaintxstats();
     if ($res)
-      return $res['transactions'];
+      return $res['txcount'];
   }
 
 
