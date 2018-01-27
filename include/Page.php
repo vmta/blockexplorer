@@ -533,6 +533,7 @@ class Page {
                                   "<i class='fa fa fa-exchange'></i> Transactions: " .
                                   "<span id='networkTransactions'>" .
                                     $this->block->getTxCount() .
+                                    (($this->block->getUnconfirmedTxCount() > 0) ? '(+'.$this->block->getUnconfirmedTxCount().' unconfirmed)' : '') .
                                   "</span>" .
                                 "</a>" .
                               "</li>" .
