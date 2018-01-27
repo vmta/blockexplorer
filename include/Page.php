@@ -338,7 +338,15 @@ class Page {
                     "<div><span data-toggle='tooltip' data-placement='right' data-original-title='How difficult it is to find a solution for the block. More specifically, it`s mathematical expectation for number of hashes someone needs to calculate in order to find a correct nonce value solving the block.'><i class='fa fa-question-circle'></i></span> Difficulty: <span id='block.difficulty'>" . $this->block->getBlockDifficulty($reqval) . "</span></div>" .
                     "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Number of transactions in the block, including coinbase transaction (which transfers block reward to the miner).'><i class='fa fa-question-circle'></i></span> Transactions: <span id='block.transactions'>" . $this->block->getBlockTxCount($reqval) . "</span></a></div>" .
                     "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Cumulative amount of coins issued by all the blocks in blockchain from the genesis and up to this block.'><i class='fa fa-question-circle'></i></span> Total coins in the network: <span id='block.totalCoins'>" . $this->block->getsupply() . "</span></div>" .
-                    "<div><span data-toggle='tooltip' data-placement='right' data-original-title='Cumulative number of transactions in the blockchain, from the genesis block and up to this block.'><i class='fa fa-question-circle'></i></span> Total transactions in the network: <span id='block.totalTransactions'>" . $this->block->getTxCount() . "</span></div>" .
+                    "<div>" .
+                      "<span data-toggle='tooltip' data-placement='right' data-original-title='Cumulative number of transactions in the blockchain, from the genesis block and up to this block.'>" .
+                        "<i class='fa fa-question-circle'></i>" .
+                      "</span> Total transactions in the network: " .
+                      "<span id='block.totalTransactions'>" .
+                        $this->block->getTxCount() .
+                        (($this->block->getUnconfirmedTxCount() > 0) ? ' (+'.$this->block->getUnconfirmedTxCount().' unconfirmed)' : '') .
+                      "</span>" .
+                    "</div>" .
                   "</div>" .
 
                   "<div class='col-md-6 stats'>" .
@@ -533,7 +541,7 @@ class Page {
                                   "<i class='fa fa fa-exchange'></i> Transactions: " .
                                   "<span id='networkTransactions'>" .
                                     $this->block->getTxCount() .
-                                    (($this->block->getUnconfirmedTxCount() > 0) ? '(+'.$this->block->getUnconfirmedTxCount().' unconfirmed)' : '') .
+                                    (($this->block->getUnconfirmedTxCount() > 0) ? ' (+'.$this->block->getUnconfirmedTxCount().' unconfirmed)' : '') .
                                   "</span>" .
                                 "</a>" .
                               "</li>" .
