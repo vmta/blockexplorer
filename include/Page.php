@@ -513,8 +513,8 @@ class Page {
           $this->html_content_string .= "<div id='content'>" .
             "<div class='container'>" .
               "<div id='page'>" .
-                "<div class='row'>" .
-                  "<div class='col-sm-12 col-md-6'>" .
+                //"<div class='row'>" .
+                //  "<div class='col-sm-12 col-md-6'>" .
                     "<div class='panel panel-default' id='network-stats'>" .
 
                       "<div class='panel-heading'>" .
@@ -632,7 +632,7 @@ class Page {
                         "</div>" .
                       "</div>" .
                     "</div>" .
-                  "</div>" .
+                  //"</div>" .
 
 //                  "<div class='col-sm-6 col-md-6'>" .
 //                    "<div class='panel panel-default'>" .
@@ -651,7 +651,7 @@ class Page {
 //                      "</div>" .
 //                    "</div>" .
 //                  "</div>" .
-                "</div>" .
+                //"</div>" .
 
                 "<div class='panel panel-default'>" .
                   "<div class='panel-heading'>" .
