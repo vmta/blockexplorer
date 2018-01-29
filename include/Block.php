@@ -502,6 +502,19 @@ class Block extends Api {
 
 
   /*
+   * Returns number of transactions per second based on
+   * the original getchaintxstats set of data by extracting
+   * 'txrate' field.
+   */
+  public function getTxRate() {
+
+    $res = $this->getchaintxstats();
+    if ($res)
+      return $res["txrate"];
+  }
+
+
+  /*
    * Returns transaction size based on the original
    * getrawtransaction set of data by extracting
    * 'size' field.
