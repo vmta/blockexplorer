@@ -537,11 +537,20 @@ class Page {
                               "</li>" .
 
                               "<li>" .
-                                "<a href='#' data-toggle='tooltip' data-placement='top' data-original-title='The number of transactions in the network (excluding coinbase, i.e. reward for mined blocks.).'>".
+                                "<a href='#' data-toggle='tooltip' data-placement='top' data-original-title='The number of transactions in the network.'>".
                                   "<i class='fa fa fa-exchange'></i> Transactions: " .
                                   "<span id='networkTransactions'>" .
                                     $this->block->getTxCount() .
                                     (($this->block->getUnconfirmedTxCount() > 0) ? ' (+'.$this->block->getUnconfirmedTxCount().' unconfirmed)' : '') .
+                                  "</span>" .
+                                "</a>" .
+                              "</li>" .
+
+                              "<li>" .
+                                "<a href='#' data-toggle='tooltip' data-placement='top' data-original-title='The number of transactions per second in the network.'>".
+                                  "<i class='fa fa fa-exchange'></i> Transactions rate: " .
+                                  "<span id='networkTransactions'>" .
+                                    $this->block->getTxRate() .
                                   "</span>" .
                                 "</a>" .
                               "</li>" .
