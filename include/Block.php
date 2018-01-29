@@ -508,9 +508,9 @@ class Block extends Api {
    */
   public function getTxRate() {
 
-    $res = $this->getchaintxstats();
+    $res = $this->getchaintxstats($this->getblockcount() - 1);
     if ($res)
-      return $res["txrate"];
+      return round($res["txrate"], 6);
   }
 
 
