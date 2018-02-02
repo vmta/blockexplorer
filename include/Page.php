@@ -774,7 +774,7 @@ class Page {
           "</div>" .
           "<div class='col-lg-4 col-md-4 col-sm-6'>" .
             "<ul>" .
-              "<li><a href='http://ua-moloko.com/'>ua-moloko.com</li>" .
+              "<li><a href='http://www.umkoin.org/'>www.umkoin.org</li>" .
             "</ul>" .
           "</div>" .
         "</div>" .
