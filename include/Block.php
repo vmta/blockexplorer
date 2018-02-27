@@ -10,9 +10,13 @@
  *
  * Version_Major: 0
  * Version_Minor: 0
- * Version_Build: 2
+ * Version_Build: 3
  *
  * Changelog:
+ *
+ * v0.0.3 (2018-02-27)
+ * Update getblocktransactionshtml(). Add td css style
+ * attribute to break and wrap long hash word.
  *
  * v0.0.2 (2018-01-27)
  * Update getTxCount(). Use parent getchaintxstats() instead
@@ -245,7 +249,7 @@ class Block extends Api {
       $tx_size = $tx_raw["size"];
 
       $html_str .= "<tr>" .
-                   "<td>" .
+                   "<td style='word-wrap: break-word; word-break: break-all; white-space: normal;'>" .
                    "<a href='http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?txid=" . $tx_raw["txid"] . "'>" . $tx_raw["hash"] . "</a>" .
                    "</td><td>" .
                      $tx_fee .
