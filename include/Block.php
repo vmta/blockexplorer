@@ -10,9 +10,15 @@
  *
  * Version_Major: 0
  * Version_Minor: 0
- * Version_Build: 3
+ * Version_Build: 4
  *
  * Changelog:
+ *
+ * v0.0.4 (2018-02-27)
+ * Update getTxFee(). Strip return value, so that
+ * there would be no need to strip it elsewhere.
+ * Consequently, update getBlockFee() and
+ * getblocktransactionshtml().
  *
  * v0.0.3 (2018-02-27)
  * Update getblocktransactionshtml(). Add td css style
@@ -149,7 +155,7 @@ class Block extends Api {
       $fees += $this->getTxFee($txids[$i]);
     }
 
-    return round($fees/100000000, 8);
+    return $fees;
   }
 
 
@@ -232,13 +238,10 @@ class Block extends Api {
       $tx_amount = 0;
 
       /* Get transaction */
-      //$txid = $this->gettransaction($res["tx"][$i]);
       $tx_raw = $this->getrawtransaction($res["tx"][$i], true);
 
       /* Retrieve transaction fee */
-      //if (isset($txid["fee"]))
-      //  $tx_fee = abs($txid["fee"]);
-      $tx_fee = round($this->getTxFee($res["tx"][$i])/100000000, 8);
+      $tx_fee = $this->getTxFee($res["tx"][$i]);
 
       /* Calculate transaction total value */
       for ($j = 0; $j < count($tx_raw["vout"]); $j++) {
@@ -488,7 +491,7 @@ class Block extends Api {
 
     $txFee = $txVinAmount - $txAmount;
 
-    return ($txFee > 0) ? $txFee : 0;
+    return ($txFee > 0) ? round($txFee/100000000, 8) : 0;
   }
 
 
